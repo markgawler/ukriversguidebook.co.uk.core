@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<fieldset name="component" label="PayPal Settings"
+		description="Configuration settings for the Donate Button within the UKRGB Component">
+		<field name="identity_token" type="text"
+			default="Identity token."
+			label="Identity Token"
+			description="Payment Data Transfer (PDT) Identity Token"
+			size="60"
+			maxlength="60">
+		</field>
+
+		<field name="sandbox" type="radio" class="btn-group"  default="0" 
+			label="Use Sandbox"
+			description="Use the Sandbox for when debuging PayPal">
+    		<option value="1">JYES</option>
+    		<option value="0">JNO</option>
+		</field>
+
+		<field name="hosted_button_id" type="text"
+			default="button_id"
+			label="Hosted Button ID"
+			description="Hosted Button ID of the button donate button"
+			size="14"
+			maxlength="14">
+		</field>
+	</fieldset>
+	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC"
+		label="JCONFIG_PERMISSIONS_LABEL">
+		<field name="rules" type="rules" component="com_ukrgb" filter="rules"
+			validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
+	</fieldset>
+</config>
