@@ -41,30 +41,17 @@ class plgSystemUkrgbDonate extends JPlugin {
 								$hosted_button_id = $config->get('hosted_button_id');
 							}
 							$item_name = $forum.':xxxx';
-							$script1 = <<<'EOD1'
-jQuery(document).ready(function(){jQuery("#paypal-box").append('<form action="
-EOD1;
-//$paypal_url
-							$script2 = <<<'EOD2'
-" method="post">\
+							$script = <<<SCRIPT
+jQuery(document).ready(function(){jQuery("#paypal-box").append('<form action="{$paypal_url}" method="post">\
 <input type="hidden" name="cmd" value="_s-xclick">\
-<input type="hidden" name="hosted_button_id" value="
-EOD2;
-//$hosted_button_id
-							$script3 = <<<'EOD3'
-">\
+<input type="hidden" name="hosted_button_id" value="{$hosted_button_id}">\
 <input type="hidden" name="custom" value="UK Rivers Guidebook">\
-<input type="hidden" name="item_name" value="
-EOD3;
-//$item_name
-//0:FORUM_NAME
-							$script4 = <<<'EOD4'
-">\
+<input type="hidden" name="item_name" value="{$item_name}">\
 <input type="image" src="https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal">\
 <img alt="" border="0" src="https://www.paypal.com/en_GB/i/scr/pixel.gif" width="1" height="1">\
 </form>')});
-EOD4;
-  							JFactory::GetDocument()->addScriptDeclaration($script1.$paypal_url.$script2.$hosted_button_id.$script3.$item_name.$script4);
+SCRIPT;
+  							JFactory::GetDocument()->addScriptDeclaration($script);
 						}
 					}
 				}
