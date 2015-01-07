@@ -16,13 +16,19 @@
 	
 	
 	<config>
-		<fields name="params">
+		<fields name="params" addfieldpath="/administrator/components/com_ukrgb/fields">
 			<fieldset name="basic">
 			<field name="forummenuitem" 
 				type="menuitem" 
 				default="0" 
 				label="Select forum menu item" 
 				description="Select the menu item for the forum to apply the Donate button to." />
+			
+			<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
+					
+			<field name="selected_forums" type="forumlist" default=""
+                       label="Select Forums"
+                       description="Select forums to display the PayPlal donate button."  />	
 				
 			</fieldset>
 		</fields>
