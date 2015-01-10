@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<buildpath>
+	<buildpathentry kind="src" path="com_ukrgb/admin"/>
+	<buildpathentry kind="src" path="com_ukrgb/site"/>
+	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
+	<buildpathentry kind="src" path="plg_ukrgbdonate"/>
+</buildpath>
