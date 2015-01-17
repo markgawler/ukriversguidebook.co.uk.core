@@ -21,9 +21,10 @@ class plgSystemUkrgbDonate extends JPlugin {
 		
 		$app = JFactory::getApplication();
 		if ($app->isSite()){
-
-			$menu = $app->getMenu()->getActive()->id;
-			if ($menu == $this->params->get('forummenuitem')){
+			
+			$active_menu = $app->getMenu()->getActive();
+			
+			if (!is_null($active_menu) && $active_menu->id == $this->params->get('forummenuitem')){
 				$uri=JFactory::getURI();
 				if ($uri->hasVar("f") && !$uri->hasVar("p")){
 					$forum = $uri->getVar("f");
