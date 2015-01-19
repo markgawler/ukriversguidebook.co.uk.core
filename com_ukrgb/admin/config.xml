@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<fieldset name="component" label="PayPal Settings"
+	<fieldset name="paypal" label="PayPal Settings"
 		description="Configuration settings for the Donate Button within the UKRGB Component">
 		
 		<field name="sandbox" type="radio" class="btn-group"  default="0" 
@@ -44,6 +44,29 @@
 		</field>
 		
 	</fieldset>
+	<fieldset name="riverguides" label="River Guides"
+		description="Configuration settings for the riverguides">
+		<field
+					name="riverguidecats"
+					type="category"
+					extension="com_content"
+					multiple="true"
+					size="10"
+					default=""
+					label="JCATEGORY"
+					description="Select the Categories for the river guides."
+					class="inputbox span12 small"
+				>
+					<option value="">JOPTION_ALL_CATEGORIES</option>
+		</field>
+
+		<field name="tags" type="tag" mode="ajax"
+		    label="JTAG" description="The set of tags used to categorise river dificulty"
+		    class="inputbox span12 small" multiple="true"
+		/>
+	
+	</fieldset>
+	
 	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC"
 		label="JCONFIG_PERMISSIONS_LABEL">
 		<field name="rules" type="rules" component="com_ukrgb" filter="rules"
