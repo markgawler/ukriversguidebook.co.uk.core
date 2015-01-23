@@ -44,8 +44,8 @@
 		</field>
 		
 	</fieldset>
-	<fieldset name="riverguides" label="River Guides"
-		description="Configuration settings for the riverguides">
+	<fieldset name="riverguides" label="COM_UKRGB_RG"
+		description="COM_UKRGB_RG_DESCRIPTION">
 		<field
 					name="riverguidecats"
 					type="category"
@@ -54,15 +54,27 @@
 					size="10"
 					default=""
 					label="JCATEGORY"
-					description="Select the Categories for the river guides."
+					description="COM_UKRGB_RGCAT_DESCRIPTION"
 					class="inputbox span12 small"
 				>
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 		</field>
 
-		<field name="tags" type="tag" mode="ajax"
-		    label="JTAG" description="The set of tags used to categorise river dificulty"
-		    class="inputbox span12 small" multiple="true"
+		<field name="dificultytags0" type="tag" 
+		    label="COM_UKRGB_RGTAGS_PLAY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
+		    class="inputbox span12 small" multiple="false"
+		/>
+		<field name="dificultytags1" type="tag" 
+		    label="COM_UKRGB_RGTAGS_EASY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
+		    class="inputbox span12 small" multiple="false"
+		/>
+		<field name="dificultytags2" type="tag" 
+		    label="COM_UKRGB_RGTAGS_INT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
+		    class="inputbox span12 small" multiple="false"
+		/>
+		<field name="dificultytags3" type="tag" 
+		    label="COM_UKRGB_RGTAGS_EXT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
+		    class="inputbox span12 small" multiple="false"
 		/>
 	
 	</fieldset>

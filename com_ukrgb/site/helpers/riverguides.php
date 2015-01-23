@@ -26,7 +26,13 @@ abstract class RiverguideHelper
 		
 		if (in_array($catid, $config->get('riverguidecats')))
 		{
-			return $config->get('tags');
+			$result = array(
+					$config->get('dificultytags0')[0],
+					$config->get('dificultytags1')[0],
+					$config->get('dificultytags2')[0],
+					$config->get('dificultytags3')[0]
+			);
+			return $result;
 		}
 		else
 		{
