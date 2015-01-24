@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="system" method="upgrade">
-	<name>UKRGB-Donate</name>
+	<name>System - UKRGB</name>
 	<creationDate>January 2015</creationDate>
 	<author>Mark Gawler</author>
 	<authorEmail>markg@wler.co.uk</authorEmail>
@@ -8,10 +8,10 @@
 	<copyright>Copyright UKRGB</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<version>0.0.1</version>
-	<description>The UKRGB Donate System plugin to add the PayPal Donate button to forum pages</description>
+	<description>The UKRGB System plugin to add the PayPal Donate button to forum pages</description>
 
 	<files>
-   		<filename plugin="ukrgbdonate">ukrgbdonate.php</filename>
+   		<filename plugin="ukrgbsystem">ukrgbsystem.php</filename>
 	</files>
 	
 	

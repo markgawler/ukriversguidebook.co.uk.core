@@ -9,7 +9,7 @@ zip -qr ../com_ukrgb .
 
 cd ..
 echo "Plugin, Creating Zip..."
-cd plg_ukrgbdonate
-zip -qr ../plg_ukrgbdonate .
+cd plg_ukrgbsystem
+zip -qr ../plg_ukrgbsystem .
 
 echo "Done."

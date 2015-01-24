@@ -11,7 +11,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 jimport( 'joomla.plugin.plugin' );
 
-class plgSystemUkrgbDonate extends JPlugin {
+class plgSystemUkrgbSystem extends JPlugin {
 	/**
 	 * Plugin to add the PayPal donate button to forum pages 
 	 *
