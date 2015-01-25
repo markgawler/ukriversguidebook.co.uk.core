@@ -16,8 +16,8 @@ JHtml::_('behavior.tooltip');
 	<div id="j-main-container">
 <?php endif;?>
 
+The Main View
 
-List of donations TBA.
  
         <div>
 			<input type="hidden" name="task" value="" />

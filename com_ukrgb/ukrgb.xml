@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="1.6.0" method="upgrade">
 
-	<name>UKRGB</name>
+	<name>com_ukrgb</name>
 	<creationDate>December 2014</creationDate>
 	<author>Mark Gawler</author>
 	<authorEmail>markg@wler.co.uk</authorEmail>
@@ -45,9 +45,11 @@
 	
 	<administration>
 		<!-- Administration Menu Section -->
-		<menu>UK Rivers Guidebook 2</menu>
+		<menu>UK Rivers Guidebook Core</menu>
 			<submenu>
-				<menu link="option=com_ukrgb" view="donation" img="class:generic">Donation</menu>
+				<menu link="option=com_ukrgb&amp;view=donation" view="donation" img="class:generic"
+				alt="Ukrgb/Donation">Donation</menu>
+				
 			</submenu>
 		
 		<files folder="admin">
@@ -63,8 +65,11 @@
 			<folder>sql</folder>
 			<folder>tables</folder>
 			<folder>fields</folder>
-			<folder>language</folder>
 		</files>
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_ukrgb.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_ukrgb.sys.ini</language>
+		</languages>
 	</administration>
 
 </extension>

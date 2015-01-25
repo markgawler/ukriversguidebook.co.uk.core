@@ -16,7 +16,8 @@
 			label="Identity Token"
 			description="Payment Data Transfer (PDT) Identity Token"
 			size="60"
-			maxlength="60">
+			maxlength="60"
+			class="inputbox span12 small">
 		</field>
 		
 		<field name="hosted_button_id" type="text"
@@ -32,7 +33,8 @@
 			label="Sandbox Identity Token"
 			description="Sandbox Payment Data Transfer (PDT) Identity Token"
 			size="60"
-			maxlength="60">
+			maxlength="60"
+			class="inputbox span12 small">
 		</field>
 		
 		<field name="sandbox_hosted_button_id" type="text"
@@ -60,21 +62,25 @@
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 		</field>
 
-		<field name="dificultytags0" type="tag" 
+		<field name="dificultytags0" type="tag" mode="nested"
 		    label="COM_UKRGB_RGTAGS_PLAY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    class="inputbox span12 small" multiple="false"
+		    default=""
+		    multiple="false"
 		/>
-		<field name="dificultytags1" type="tag" 
+		<field name="dificultytags1" type="tag" mode="nested"
 		    label="COM_UKRGB_RGTAGS_EASY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    class="inputbox span12 small" multiple="false"
+		    default=""
+		    multiple="false"
 		/>
-		<field name="dificultytags2" type="tag" 
+		<field name="dificultytags2" type="tag" mode="nested"
 		    label="COM_UKRGB_RGTAGS_INT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    class="inputbox span12 small" multiple="false"
+		    default=""
+		     multiple="false"
 		/>
-		<field name="dificultytags3" type="tag" 
+		<field name="dificultytags3" type="tag" mode="nested"
 		    label="COM_UKRGB_RGTAGS_EXT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    class="inputbox span12 small" multiple="false"
+		    default=""
+		     multiple="false"
 		/>
 	
 	</fieldset>

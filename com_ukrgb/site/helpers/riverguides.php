@@ -23,8 +23,9 @@ abstract class RiverguideHelper
 	{
 		jimport('joomla.application.component.helper');
 		$config = JComponentHelper::getParams('com_ukrgb');
+		$cats = $config->get('riverguidecats');
 		
-		if (in_array($catid, $config->get('riverguidecats')))
+		if (!empty($cats) && in_array($catid, $cats))
 		{
 			$result = array(
 					$config->get('dificultytags0')[0],
@@ -34,9 +35,6 @@ abstract class RiverguideHelper
 			);
 			return $result;
 		}
-		else
-		{
-			return array();	
-		}
+		return array();	
 	}
 }
