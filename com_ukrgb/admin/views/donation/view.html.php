@@ -46,7 +46,7 @@ class UkrgbViewDonation extends JViewLegacy
 		$user		= JFactory::getUser();
 		
 		//JToolBarHelper::title(JText::_('COM_UKRGB_DONATIONS'));
-		JToolBarHelper::title('UK Rivers Guidebook');
+		JToolBarHelper::title('UK Rivers Guidebook - Donations');
 		if ($user->authorise('core.admin', 'com_ukrgb'))
 		{
 			JToolbarHelper::preferences('com_ukrgb');

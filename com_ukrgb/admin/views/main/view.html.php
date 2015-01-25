@@ -43,7 +43,7 @@ class UkrgbViewMain extends JViewLegacy
 	{
 		$user		= JFactory::getUser();
 		
-		JToolBarHelper::title('UK Rivers Guidebook main');
+		JToolBarHelper::title('UK Rivers Guidebook');
 		if ($user->authorise('core.admin', 'com_ukrgb'))
 		{
 			JToolbarHelper::preferences('com_ukrgb');
