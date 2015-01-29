@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fields name="main">
+		<fieldset name="tagfieldset">
+			<field name="applytags" type="tag" mode="nested"
+			    label="JTAG" description="The Tags to apply to the article in the file"
+			    default=""
+			    multiple="true"
+			/>
+		</fieldset>
+	</fields>
+</form>
