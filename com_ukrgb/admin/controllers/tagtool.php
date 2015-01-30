@@ -36,7 +36,7 @@ class UkrgbControllerTagtool extends JControllerLegacy
 		if ($model->tagContent($tags, $file))
 		{
 			$app	= JFactory::getApplication();
-			$app->enqueueMessage("COM_UKRGB_TAGTOOL_SUCSESS");
+			$app->enqueueMessage( JText::_('COM_UKRGB_TAGTOOL_SUCSESS'));
 		}
 
 		$redirect_url = JRoute::_('index.php?option=com_ukrgb&view=tagtool', false);

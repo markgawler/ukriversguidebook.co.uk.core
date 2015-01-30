@@ -65,14 +65,57 @@ class UkrgbModelTagtool extends JModelAdmin
 		// Check if there was a  problem uploading the file.
 		if ($userfile['error'] || $userfile['size'] < 1)
 		{
-			JError::raiseWarning('', JText::_(''));
-		
+			JError::raiseWarning('', JText::_('COM_UKRGB_TAGTOOL_MSG_UPLOADERROR'));
 			return false;
 		}
+		$tmp_name = $userfile['tmp_name'];
 		
+		$lines = file($tmp_name);
+		foreach ($lines as $no => $line){
+			// strip new lines of end of line
+			$line = trim(preg_replace('/\s+/', ' ', $line));
+			$id = $this->_get_item_id($line);
+			echo "Line #<b>{$no}</b> : " . $line . "<br />\n";
+			echo "             ". $id . "<br />\n";
+			
+			$this->_apply_tag($id, $tags);
+			
 		
-		echo "model";
+		}
 		return true;
 	}
+	
+	protected function _get_item_id($url)
+	{
+		$db = JFactory::getDBO();
+		
+		$query = $db->getQuery(true)
+		->select('origurl')
+		->from('#__sefurls')
+		->where('sefurl = ' . $db->quote($url));
+				
+		$db->setQuery($query);
+		$origurl = $db->loadResult();
+		if (!empty($origurl))
+		{
+			$uri = new JUri($origurl);
+			$id = $uri->getVar('id');
+			return $id;
+		}
+		return false;
+	}
+	
+	protected function _apply_tag($content_id, $tags)
+	{
+		$table = JTable::getInstance('Content', 'JTable', array());
+		$table->load($content_id);
+		
+		$tagsObserver = $table->getObserverOfClass('JTableObserverTags');
+		$tagsObserver->onBeforeStore(true, false);
+		$tagsObserver->setNewTags($tags, true); 
+		
+	}
+	
+	
 
 }
