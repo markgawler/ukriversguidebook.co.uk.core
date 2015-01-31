@@ -62,10 +62,12 @@ class UkrgbModelTagtool extends JModelAdmin
 	 */
 	public function tagContent($tags, $userfile)
 	{
+		$app	= JFactory::getApplication();
+		
 		// Check if there was a  problem uploading the file.
 		if ($userfile['error'] || $userfile['size'] < 1)
 		{
-			JError::raiseWarning('', JText::_('COM_UKRGB_TAGTOOL_MSG_UPLOADERROR'));
+			$app->enqueueMessage(JText::_('COM_UKRGB_TAGTOOL_MSG_UPLOADERROR'),'warning');
 			return false;
 		}
 		$tmp_name = $userfile['tmp_name'];
@@ -75,12 +77,12 @@ class UkrgbModelTagtool extends JModelAdmin
 			// strip new lines of end of line
 			$line = trim(preg_replace('/\s+/', ' ', $line));
 			$id = $this->_get_item_id($line);
-			echo "Line #<b>{$no}</b> : " . $line . "<br />\n";
-			echo "             ". $id . "<br />\n";
-			
-			$this->_apply_tag($id, $tags);
-			
-		
+			if ($id != False){
+				$this->_apply_tag($id, $tags);
+			}
+			else {
+				$app->enqueueMessage('No article for: ' . $line , 'warning');
+			}
 		}
 		return true;
 	}
