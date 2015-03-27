@@ -37,4 +37,60 @@ abstract class RiverguideHelper
 		}
 		return array();	
 	}
+	
+	/**
+	 * Returns Tru is the category is a tiverguide category
+	 * 
+	 * @param unknown $catid
+	 * @return boolean
+	 */
+	public static function is_riverguide_category ($catid) {
+		jimport('joomla.application.component.helper');
+		$config = JComponentHelper::getParams('com_ukrgb');
+		$cats = $config->get('riverguidecats');
+		
+		return !empty($cats) && in_array($catid, $cats);
+	}
+	
+	/**
+	 * Returns an objet of two arrays:
+	 *  ->guides[id] is an array indexed by the article id, each element 
+	 * 		is an object containing the river summary and the dificulty
+	 *  ->diff_count[dificulty] is an array indext by the dificulty coontaining a 
+	 *      count of guides at the dificulty
+	 *
+	 * @param unknown $catid
+	 * @return StdClass|boolean
+	 */
+	public static function get_riverguides_for_category($catid){
+		
+		// Get the Item id from the sefurls extension table.
+		$db = JFactory::getDBO();
+		
+		$query = $db->getQuery(true)
+		->select(array('id','summary','dificulty'))
+		->from('#__ukrgb_riverguide')
+		->where('catid  = ' . $catid);
+				
+		$db->setQuery($query);
+		$r = $db->loadObjectList();
+		if (!empty($r))
+		{
+			$diff = array(0,0,0,0);
+			$res = array();
+			foreach ($r as $item){
+				$res[$item->id] = $item;
+				$diff[$item->dificulty] = $diff[$item->dificulty] +1;
+			}
+			ksort($diff);
+			$result = new StdClass;
+			$result->guides = $res;
+			$result->diff_count = $diff;
+
+			return $result;
+		} 
+		return false;
+	}
+	
+	
 }

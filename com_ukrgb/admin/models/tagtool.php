@@ -64,6 +64,15 @@ class UkrgbModelTagtool extends JModelAdmin
 	{
 		$app	= JFactory::getApplication();
 		
+		$config = JComponentHelper::getParams('com_ukrgb');
+		
+		$mapping = array(
+				$config->get('dificultytags0')[0] => 0,
+				$config->get('dificultytags1')[0] => 1,
+				$config->get('dificultytags2')[0] => 2,
+				$config->get('dificultytags3')[0] => 3
+		);
+		
 		// Check if there was a  problem uploading the file.
 		if ($userfile['error'] || $userfile['size'] < 1)
 		{
@@ -72,23 +81,33 @@ class UkrgbModelTagtool extends JModelAdmin
 		}
 		$tmp_name = $userfile['tmp_name'];
 		
-		$lines = file($tmp_name);
-		foreach ($lines as $no => $line){
-			// strip new lines of end of line
-			$line = trim(preg_replace('/\s+/', ' ', $line));
-			$id = $this->_get_item_id($line);
-			if ($id != False){
-				$this->_apply_tag($id, $tags);
+		
+		$file = fopen($tmp_name,"r");
+		while(! feof($file))
+		{
+			$field_array = (fgetcsv($file));
+			$url = trim(preg_replace('/\s+/', ' ', $field_array[0]));
+			$summary = trim($field_array[1]);
+			$item_data = $this->_get_item_data_from_url($url);
+			$item_data['summary'] = $summary;
+			$item_data['dificulty'] = $mapping[$tags[0]];
+
+			if ($item_data['id'] != False){
+				$this->_apply_tag($item_data['id'], $tags);
+				$this->_apply_river_data($item_data);
 			}
 			else {
-				$app->enqueueMessage('No article for: ' . $line , 'warning');
+				$app->enqueueMessage('No article for: ' . $url , 'warning');
 			}
 		}
+		fclose($file);
+		
 		return true;
 	}
 	
-	protected function _get_item_id($url)
+	protected function _get_item_data_from_url($url)
 	{
+		// Get the Item id from the sefurls extension table.
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
@@ -102,7 +121,8 @@ class UkrgbModelTagtool extends JModelAdmin
 		{
 			$uri = new JUri($origurl);
 			$id = $uri->getVar('id');
-			return $id;
+			$catid = $uri->getVar('catid');
+			return array('id' => $id, 'catid' => $catid);
 		}
 		return false;
 	}
@@ -118,6 +138,34 @@ class UkrgbModelTagtool extends JModelAdmin
 		
 	}
 	
-	
+	protected function _apply_river_data($data)
+	{
+		
+		$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());
+		if (!$table){
+			echo "Fail!<br>";
+			die();
+		}
+		$id = $data['id'];
+		if (!$table->load($id)){
+			// Failed to load the guide data so create a blank entry. 
+			// TODO override save to do this automatically  
+			$db = $table->getDbo();
+			$query = $db->getQuery(true);
+			$query->insert($table->getTableName())
+			->columns($db->quoteName(array('id',)))
+			->values(implode(',', array((int) $id)));
+			$db->setQuery($query);
+			$result = $db->query();	
+		}
+		
+		$sucsess = $table->save($data);
+		if (!$sucsess)
+		{
+			$app = JFactory::getApplication();
+			$app->enqueueMessage('Failed to save: ' . $summary , 'warning');
+		}
+			
+	}	
 
 }

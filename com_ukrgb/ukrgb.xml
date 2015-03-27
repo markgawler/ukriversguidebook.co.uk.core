@@ -5,10 +5,10 @@
 	<creationDate>December 2014</creationDate>
 	<author>Mark Gawler</author>
 	<authorEmail>markg@wler.co.uk</authorEmail>
-	<authorUrl>http://www.example.org</authorUrl>
+	<authorUrl>http://www.ukriversguidebook.co.uk</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.1</version>
+	<version>0.0.4</version>
 	<description>UKRGB component, paypal donations</description>
 
 	<install> <!-- Runs on install -->

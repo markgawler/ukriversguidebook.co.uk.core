@@ -1,0 +1,1 @@
+ALTER TABLE  `#__ukrgb_riverguide` ADD  `catid` INT( 10 ) UNSIGNED NOT NULL AFTER  `id` ;

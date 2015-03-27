@@ -41,3 +41,12 @@ CREATE TABLE `#__ukrgb_doantion` (
 
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `#__ukrgb_riverguide`;
+CREATE TABLE `#__ukrgb_riverguide` (
+  `id` int(11) NOT NULL,
+  `catid` int(10) unsigned NOT NULL,
+  `summary` varchar(200) DEFAULT NULL,
+  `dificulty` tinyint(3) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8;
