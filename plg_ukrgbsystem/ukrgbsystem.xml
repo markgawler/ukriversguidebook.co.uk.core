@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="2.5" type="plugin" group="system" method="upgrade">
-	<name>System - UKRGB</name>
+	<name>PLG_SYSTEM_UKRGB</name>
 	<creationDate>January 2015</creationDate>
 	<author>Mark Gawler</author>
 	<authorEmail>markg@wler.co.uk</authorEmail>
 	<authorUrl>www.ukriversguidebook.co.uk</authorUrl>
 	<copyright>Copyright UKRGB</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<version>0.0.1</version>
-	<description>The UKRGB System plugin to add the PayPal Donate button to forum pages</description>
+	<version>0.0.2</version>
+	<description>PLG_SYSTEM_UKRGB_XML_DESCRIPTION</description>
 
 	<files>
-   		<filename plugin="ukrgbsystem">ukrgbsystem.php</filename>
+	    <folder>language</folder>
+   		<filename plugin="ukrgb">ukrgbsystem.php</filename>
+   		<filename>index.html</filename>
 	</files>
 	
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_ukrgb.sys.ini</language>
+	</languages>
 	
 	<config>
 		<fields name="params" addfieldpath="/administrator/components/com_ukrgb/fields">
