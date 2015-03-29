@@ -48,7 +48,7 @@ class JFormFieldForumlist extends JFormField
 			$query = $db->getQuery(true)
 				->select('params')
 				->from('#__extensions')
-				->where('element = ' . $db->quote('ukrgbsystem'))
+				->where('element = ' . $db->quote('ukrgb'))
 				->where('folder = ' . $db->quote('system'))
 				->where('client_id = ' . $db->quote($cid[0]));
 
