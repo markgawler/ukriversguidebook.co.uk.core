@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <extension version="2.5" type="plugin" group="content" method="upgrade">
+      <name>PLG_CONTENT_UKRGB</name>
+      <author>Mark Gawler</author>
+      <creationDate>March 2015</creationDate>
+      <copyright>(C) 2015 - 2015 Mark Gawler. All rights reserved.</copyright>
+      <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+      <authorEmail>markg@wler.co.uk</authorEmail>
+      <authorUrl>www.ukriversguidebook.co.uk</authorUrl>
+      <version>1.0.1</version>
+      <description>PLG_CONTENT_UKRGB_XML_DESCRIPTION</description>
+ 
+      <files>
+         <folder>language</folder>
+         <folder>fields</folder>
+         <filename plugin="ukrgb">ukrgbcontent.php</filename>
+         <filename>index.html</filename>
+      </files>
+      
+      <languages folder="language">
+			<language tag="en-GB">en-GB/en-GB.plg_content_ukrgb.ini</language>
+			<language tag="en-GB">en-GB/en-GB.plg_content_ukrgb.sys.ini</language>
+	  </languages>
+ 
+      <config>
+         <fields name="params">
+            <fieldset name="basic">
+               <field
+                  name="ratingclass_sfx"
+                  type="text"
+                  label="PLG_CONTENT_RIVERGUIDE_ITEM_FIELD_RATING_CLASS_LABEL"
+                  description="PLG_CONTENT_RIVERGUIDE_ITEM_FIELD_RATING_CLASS_DESC"
+               />
+            </fieldset>
+         </fields>
+      </config>
+   </extension>
