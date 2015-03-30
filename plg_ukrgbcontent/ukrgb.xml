@@ -13,7 +13,7 @@
       <files>
          <folder>language</folder>
          <folder>fields</folder>
-         <filename plugin="ukrgb">ukrgbcontent.php</filename>
+         <filename plugin="ukrgb">ukrgb.php</filename>
          <filename>index.html</filename>
       </files>
       
