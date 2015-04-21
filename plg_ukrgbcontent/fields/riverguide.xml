@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+   <form>
+      <fields name="attribs">
+         <fieldset name="riverguide" label="PLG_CONTENT_RIVERGUIDE_LABEL">
+            <field
+               class="span3"
+               name="summary"
+               type="text"
+               id="summary"
+               description="PLG_CONTENT_RIVERGUIDE_SUMMARY_DESC"
+               label="PLG_CONTENT_UKRGB_FIELD_SUMMARY_LABEL"
+               message="PLG_CONTENT_UKRG_FIELD_SUMMARY_MESSAGE"
+               size="60"
+            />
+            
+           	<field class="span3" name="grade" type="list" default="" label="COM_UKRGB_GRADE" description="COM_UKRGB_GRADE_DESCRIPTION">
+  				<option value="0">COM_UKRGB_GRADE_PLAY</option>
+  				<option value="1">COM_UKRGB_GRADE_EASY</option>
+  				<option value="2">COM_UKRGB_GRADE_INT</option>
+  				<option value="4">COM_UKRGB_GRADE_EXT</option>
+			</field>
+         </fieldset>
+         
+ 
+         
+      </fields>
+   </form>

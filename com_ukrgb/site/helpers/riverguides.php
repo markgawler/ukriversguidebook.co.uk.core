@@ -64,7 +64,6 @@ abstract class RiverguideHelper
 	 */
 	public static function get_riverguides_for_category($catid){
 		
-		// Get the Item id from the sefurls extension table.
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
