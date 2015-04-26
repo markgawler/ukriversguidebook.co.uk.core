@@ -17,32 +17,34 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentPrepareForm($form, $data)
 	{
-
+		
 		if (!($form instanceof JForm))
 		{
-			echo "plgContentUkrgb - JERROR_NOT_A_FORM";
-				
 			$this->_subject->setError('JERROR_NOT_A_FORM');
 			return false;
 		}
+	
+		JForm::addFormPath(dirname(__FILE__) . '/fields');
+		$form->loadFile('riverguide', false);
 		
-		if ($form->getName() == 'com_content.article' && !empty($data->catid))
+		if (isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
-			jimport('joomla.application.component.helper');
-			$config = JComponentHelper::getParams('com_ukrgb');
-			if ($this->is_riverguide_category($data->catid))
-			{
-				// Add the extra fields to the form.
-				JForm::addFormPath(__DIR__ . '/fields');
-				$form->loadFile('riverguide', false);
+			// Add the extra fields to the form.
+			// need a seperate directory for the installer not to consider the XML a package when "discovering"
+			
+			
 
-				// load the data in to the form
-				$form->setValue('summary','attribs',$data->summary);
-				$form->setValue('grade','attribs',$data->dificulty);
+			// load the data in to the form
+			if (!empty($data->riverguide))
+			{
+				$form->setValue('summary','attribs',$data->riverguide['summary']);
+				$form->setValue('grade','attribs',$data->riverguide['grade']);
 			}
+			
 		}
 		return true;
 	}
+
 	
 	public function onContentPrepareData($context, $data)
 	{
@@ -59,37 +61,55 @@ class plgContentUkrgb extends JPlugin {
 			$rg = $db->loadObject();
 			if (!empty($rg))
 			{
-				$data->summary = $rg->summary;
-				$data->dificulty = $rg->dificulty;		
+				//$data->$rg;
+				$data->riverguide = array(
+						'summary' => $rg->summary,
+						'grade' => $rg->dificulty);
 			}
 		}
 	}
+
 	
-	
+	/*
+	 * 
 	public function onContentBeforeSave($context, $article, $isNew)
 	{
-		echo "onContentAfterSave";
+		echo "onContentBeforeSave";
 		
 		if ($context == 'com_content.article')
 		//&& $this->is_riverguide_category($data->catid))
 		{
 			var_dump($article);
-			die();
+			//die();
 		}
 		return ;
 	}
+	*/
+
 	
 	public function onContentAfterSave($context, $article, $isNew)
 	{
-		echo "onContentAfterSave";
 		
-		if ($context == 'com_content.article') 
-				//&& $this->is_riverguide_category($data->catid))
+		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
 		{
-			var_dump($article);
-			//die();	
+			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
+			$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());	
+			
+			$attribs = json_decode($article->attribs);
+			
+			$data = array('id' => $article->id,
+					'catid' => $article->catid,
+					'dificulty' => $attribs->grade,
+					'summary' => $attribs->summary);
+			
+			$sucsess = $table->save($data);
+			if (!$sucsess)
+			{
+				$app = JFactory::getApplication();
+				$app->enqueueMessage('Failed to save: ' . $summary , 'warning');
+			}	
 		}
-		return ;
+		return true;
 	}
 	
 	private function is_riverguide_category($catid)
