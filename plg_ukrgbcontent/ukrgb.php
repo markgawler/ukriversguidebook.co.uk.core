@@ -102,6 +102,19 @@ class plgContentUkrgb extends JPlugin {
 		return true;
 	}
 	
+	
+	public function onContentAfterDelete($context, $article)
+	{
+		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
+		{
+			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
+			$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());
+			$table->delete($article->id);
+		}
+	}
+	
+	
+	
 	private function is_riverguide_category($catid)
 	{
 		jimport('joomla.application.component.helper');
