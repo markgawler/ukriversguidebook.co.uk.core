@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 abstract class RiverguideHelper
 {
 	/**
-	 * Returns the set of tags assosciated with river guides dificulty if the category is a river guide cat
+	 * Returns the set of tags assosciated with river guides grade if the category is a river guide cat
 	 * a null array is returned for non-river guide categories
 	 *  
 	 * @param unknown $catid
@@ -55,9 +55,9 @@ abstract class RiverguideHelper
 	/**
 	 * Returns an objet of two arrays:
 	 *  ->guides[id] is an array indexed by the article id, each element 
-	 * 		is an object containing the river summary and the dificulty
-	 *  ->diff_count[dificulty] is an array indext by the dificulty coontaining a 
-	 *      count of guides at the dificulty
+	 * 		is an object containing the river summary and the grade
+	 *  ->grade_count[grade] is an array indext by the grade coontaining a 
+	 *      count of guides at the grade
 	 *
 	 * @param unknown $catid
 	 * @return StdClass|boolean
@@ -67,7 +67,7 @@ abstract class RiverguideHelper
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
-		->select(array('id','summary','dificulty'))
+		->select(array('id','summary','grade'))
 		->from('#__ukrgb_riverguide')
 		->where('catid  = ' . $catid);
 				
@@ -75,16 +75,16 @@ abstract class RiverguideHelper
 		$r = $db->loadObjectList();
 		if (!empty($r))
 		{
-			$diff = array(0,0,0,0);
+			$grade = array(0,0,0,0);
 			$res = array();
 			foreach ($r as $item){
 				$res[$item->id] = $item;
-				$diff[$item->dificulty] = $diff[$item->dificulty] +1;
+				$grade[$item->grade] = $grade[$item->grade] +1;
 			}
-			ksort($diff);
+			ksort($grade);
 			$result = new StdClass;
 			$result->guides = $res;
-			$result->diff_count = $diff;
+			$result->grade_count = $grade;
 
 			return $result;
 		} 

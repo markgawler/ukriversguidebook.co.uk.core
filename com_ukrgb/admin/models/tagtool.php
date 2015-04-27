@@ -90,7 +90,7 @@ class UkrgbModelTagtool extends JModelAdmin
 			$summary = trim($field_array[1]);
 			$item_data = $this->_get_item_data_from_url($url);
 			$item_data['summary'] = $summary;
-			$item_data['dificulty'] = $mapping[$tags[0]];
+			$item_data['grade'] = $mapping[$tags[0]];
 
 			if ($item_data['id'] != False){
 				$this->_apply_tag($item_data['id'], $tags);

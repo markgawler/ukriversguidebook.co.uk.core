@@ -9,8 +9,6 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-//jimport( 'joomla.plugin.plugin' );
-
 class plgContentUkrgb extends JPlugin {
 	
 	protected $autoloadLanguage = true;
@@ -23,24 +21,18 @@ class plgContentUkrgb extends JPlugin {
 			$this->_subject->setError('JERROR_NOT_A_FORM');
 			return false;
 		}
-	
+		// Add the extra fields to the form.
 		JForm::addFormPath(dirname(__FILE__) . '/fields');
 		$form->loadFile('riverguide', false);
 		
 		if (isset($data->catid) && $this->is_riverguide_category($data->catid))
-		{
-			// Add the extra fields to the form.
-			// need a seperate directory for the installer not to consider the XML a package when "discovering"
-			
-			
-
+		{	
 			// load the data in to the form
 			if (!empty($data->riverguide))
 			{
 				$form->setValue('summary','attribs',$data->riverguide['summary']);
 				$form->setValue('grade','attribs',$data->riverguide['grade']);
 			}
-			
 		}
 		return true;
 	}
@@ -53,7 +45,7 @@ class plgContentUkrgb extends JPlugin {
 			$db = JFactory::getDBO();
 		
 			$query = $db->getQuery(true)
-			->select(array('summary','dificulty'))
+			->select(array('summary','grade'))
 			->from('#__ukrgb_riverguide')
 			->where('id  = ' . $data->id);
 			
@@ -61,10 +53,9 @@ class plgContentUkrgb extends JPlugin {
 			$rg = $db->loadObject();
 			if (!empty($rg))
 			{
-				//$data->$rg;
 				$data->riverguide = array(
 						'summary' => $rg->summary,
-						'grade' => $rg->dificulty);
+						'grade' => $rg->grade);
 			}
 		}
 	}
@@ -89,7 +80,6 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentAfterSave($context, $article, $isNew)
 	{
-		
 		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
 		{
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
@@ -99,14 +89,14 @@ class plgContentUkrgb extends JPlugin {
 			
 			$data = array('id' => $article->id,
 					'catid' => $article->catid,
-					'dificulty' => $attribs->grade,
+					'grade' => $attribs->grade,
 					'summary' => $attribs->summary);
 			
 			$sucsess = $table->save($data);
 			if (!$sucsess)
 			{
 				$app = JFactory::getApplication();
-				$app->enqueueMessage('Failed to save: ' . $summary , 'warning');
+				$app->enqueueMessage('Failed to save river guide fata for: ' .$article->title  , 'warning');
 			}	
 		}
 		return true;
