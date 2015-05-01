@@ -13,7 +13,8 @@
                size="60"
             />
             
-           	<field class="span3" name="grade" id="grade" type="list" default="4" label="COM_UKRGB_GRADE" description="COM_UKRGB_GRADE_DESCRIPTION">
+           	<field class="span3" name="grade" id="grade" type="list"  label="COM_UKRGB_GRADE" description="COM_UKRGB_GRADE_DESCRIPTION">
+           		<option value="-1">COM_UKRGB_GRADE_NONE</option>
   				<option value="0">COM_UKRGB_GRADE_PLAY</option>
   				<option value="1">COM_UKRGB_GRADE_EASY</option>
   				<option value="2">COM_UKRGB_GRADE_INT</option>

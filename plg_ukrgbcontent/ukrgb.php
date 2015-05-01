@@ -40,7 +40,7 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentPrepareData($context, $data)
 	{
-		if ($context == 'com_content.article' && $this->is_riverguide_category($data->catid))
+		if ($context == 'com_content.article' && isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
 			$db = JFactory::getDBO();
 		
@@ -61,21 +61,24 @@ class plgContentUkrgb extends JPlugin {
 	}
 
 	
-	/*
-	 * 
-	public function onContentBeforeSave($context, $article, $isNew)
+	
+	 
+	public function onContentBeforeSave($context, $article, $isNew) 
 	{
-		echo "onContentBeforeSave";
-		
-		if ($context == 'com_content.article')
-		//&& $this->is_riverguide_category($data->catid))
+		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
 		{
-			var_dump($article);
-			//die();
+			$attribs = json_decode($article->attribs);	
+			if ($attribs->grade == "-1"){
+				$app = JFactory::getApplication();
+				$app->enqueueMessage(JText::_("COM_UKRGB_GRADE_MISSING") , 'error');
+
+				return false;
+			}
+			
 		}
-		return ;
+		return true;
 	}
-	*/
+	
 
 	
 	public function onContentAfterSave($context, $article, $isNew)
@@ -96,7 +99,7 @@ class plgContentUkrgb extends JPlugin {
 			if (!$sucsess)
 			{
 				$app = JFactory::getApplication();
-				$app->enqueueMessage('Failed to save river guide fata for: ' .$article->title  , 'warning');
+				$app->enqueueMessage(JText::_("COM_UKRGB_GUIDE_SAVE_FAIL"). ':' .$article->title  , 'warning');
 			}	
 		}
 		return true;
