@@ -2,11 +2,14 @@
 <form>
     <fields name="main">
 		<fieldset name="tagfieldset">
-			<field name="applytags" type="tag" mode="nested"
-			    label="JTAG" description="The Tags to apply to the article in the file"
-			    default=""
-			    multiple="true"
-			/>
+			
+			<field class="span3" name="applyGrade" id="grade" type="list"  label="COM_UKRGB_GRADE" description="COM_UKRGB_GRADE_DESCRIPTION">
+           		<option value="-1">COM_UKRGB_GRADE_NONE</option>
+  				<option value="0">COM_UKRGB_GRADE_PLAY</option>
+  				<option value="1">COM_UKRGB_GRADE_EASY</option>
+  				<option value="2">COM_UKRGB_GRADE_INT</option>
+  				<option value="4">COM_UKRGB_GRADE_EXT</option>
+			</field>
 		</fieldset>
 	</fields>
 </form>

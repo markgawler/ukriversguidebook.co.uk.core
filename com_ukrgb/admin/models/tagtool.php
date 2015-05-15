@@ -52,27 +52,20 @@ class UkrgbModelTagtool extends JModelAdmin
 	}
 	
 	/**
-	 * method to tag the content specified by the urls in the file.
+	 * method to grade the content specified by the urls in the file.
 	 *
-	 * @param   array  $tags      the tags to apply to the content.
+	 * @param   int  $grade      the tags to apply to the content.
 	 * @param   array  $file
 	 *
 	 * @return  boolean 
 	 *
 	 */
-	public function tagContent($tags, $userfile)
+	public function gradeContent($grade, $userfile)
 	{
 		$app	= JFactory::getApplication();
 		
 		$config = JComponentHelper::getParams('com_ukrgb');
-		
-		$mapping = array(
-				$config->get('dificultytags0')[0] => 0,
-				$config->get('dificultytags1')[0] => 1,
-				$config->get('dificultytags2')[0] => 2,
-				$config->get('dificultytags3')[0] => 3
-		);
-		
+				
 		// Check if there was a  problem uploading the file.
 		if ($userfile['error'] || $userfile['size'] < 1)
 		{
@@ -90,10 +83,10 @@ class UkrgbModelTagtool extends JModelAdmin
 			$summary = trim($field_array[1]);
 			$item_data = $this->_get_item_data_from_url($url);
 			$item_data['summary'] = $summary;
-			$item_data['grade'] = $mapping[$tags[0]];
+			$item_data['grade'] = $grade;
 
 			if ($item_data['id'] != False){
-				$this->_apply_tag($item_data['id'], $tags);
+				//$this->_apply_tag($item_data['id'], $tags);
 				$this->_apply_river_data($item_data);
 			}
 			else {
@@ -111,9 +104,9 @@ class UkrgbModelTagtool extends JModelAdmin
 		$db = JFactory::getDBO();
 		
 		$query = $db->getQuery(true)
-		->select('origurl')
-		->from('#__sefurls')
-		->where('sefurl = ' . $db->quote($url));
+		->select('newurl')
+		->from('#__sh404sef_urls')
+		->where('oldurl = ' . $db->quote($url));
 				
 		$db->setQuery($query);
 		$origurl = $db->loadResult();
@@ -125,17 +118,6 @@ class UkrgbModelTagtool extends JModelAdmin
 			return array('id' => $id, 'catid' => $catid);
 		}
 		return false;
-	}
-	
-	protected function _apply_tag($content_id, $tags)
-	{
-		$table = JTable::getInstance('Content', 'JTable', array());
-		$table->load($content_id);
-		
-		$tagsObserver = $table->getObserverOfClass('JTableObserverTags');
-		$tagsObserver->onBeforeStore(true, false);
-		$tagsObserver->setNewTags($tags, true); 
-		
 	}
 	
 	protected function _apply_river_data($data)

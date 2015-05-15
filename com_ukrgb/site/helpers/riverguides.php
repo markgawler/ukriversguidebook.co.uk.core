@@ -19,7 +19,7 @@ abstract class RiverguideHelper
 	 * @param unknown $catid
 	 * @return array()
 	 */
-	public static function get_tagset_for_category($catid)
+	/*public static function get_tagset_for_category($catid)
 	{
 		jimport('joomla.application.component.helper');
 		$config = JComponentHelper::getParams('com_ukrgb');
@@ -36,7 +36,7 @@ abstract class RiverguideHelper
 			return $result;
 		}
 		return array();	
-	}
+	}*/
 	
 	/**
 	 * Returns Tru is the category is a tiverguide category

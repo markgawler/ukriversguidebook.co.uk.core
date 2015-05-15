@@ -62,26 +62,7 @@
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 		</field>
 
-		<field name="dificultytags0" type="tag" mode="nested"
-		    label="COM_UKRGB_RGTAGS_PLAY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    default=""
-		    multiple="false"
-		/>
-		<field name="dificultytags1" type="tag" mode="nested"
-		    label="COM_UKRGB_RGTAGS_EASY" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    default=""
-		    multiple="false"
-		/>
-		<field name="dificultytags2" type="tag" mode="nested"
-		    label="COM_UKRGB_RGTAGS_INT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    default=""
-		     multiple="false"
-		/>
-		<field name="dificultytags3" type="tag" mode="nested"
-		    label="COM_UKRGB_RGTAGS_EXT" description="COM_UKRGB_RGTAGS_DESCRIPTION"
-		    default=""
-		     multiple="false"
-		/>
+		
 	
 	</fieldset>
 	

@@ -16,7 +16,7 @@ defined('_JEXEC') or die;
 class UkrgbControllerTagtool extends JControllerLegacy
 {
 	/**
-	 * Tag some content.
+	 * Grade riverguide .
 	 *
 	 * @return  void
 	 */
@@ -28,12 +28,12 @@ class UkrgbControllerTagtool extends JControllerLegacy
 		$file = $this->input->files->get('url_list', null, 'array');
 		
 		$mainform = new JRegistry($this->input->get('jform',array(),'array'));
-		$tagsform = new JRegistry($mainform->get('main', array()));
+		$gradeform = new JRegistry($mainform->get('main', array()));
 
-		$tags = $tagsform->get('applytags', array());
+		$grade = $gradeform->get('applyGrade', array());
 		
 		$model = $this->getModel('tagtool');
-		if ($model->tagContent($tags, $file))
+		if ($model->gradeContent($grade, $file))
 		{
 			$app	= JFactory::getApplication();
 			$app->enqueueMessage( JText::_('COM_UKRGB_TAGTOOL_SUCSESS'));
