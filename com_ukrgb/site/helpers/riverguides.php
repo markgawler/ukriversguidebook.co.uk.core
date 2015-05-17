@@ -88,7 +88,10 @@ abstract class RiverguideHelper
 
 			return $result;
 		} 
-		return false;
+		$result = new StdClass;
+		$result->guides = array();
+		$result->grade_count = array();
+		return $result;
 	}
 	
 	
