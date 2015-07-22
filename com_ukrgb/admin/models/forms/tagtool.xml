@@ -8,7 +8,7 @@
   				<option value="0">COM_UKRGB_GRADE_PLAY</option>
   				<option value="1">COM_UKRGB_GRADE_EASY</option>
   				<option value="2">COM_UKRGB_GRADE_INT</option>
-  				<option value="4">COM_UKRGB_GRADE_EXT</option>
+  				<option value="3">COM_UKRGB_GRADE_EXT</option>
 			</field>
 		</fieldset>
 	</fields>
