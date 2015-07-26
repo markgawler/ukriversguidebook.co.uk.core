@@ -56,7 +56,7 @@ abstract class RiverguideHelper
 	 * Returns an objet of two arrays:
 	 *  ->guides[id] is an array indexed by the article id, each element 
 	 * 		is an object containing the river summary and the grade
-	 *  ->grade_count[grade] is an array indext by the grade coontaining a 
+	 *  ->grade_count[grade] is an array indexed by the grade coontaining a 
 	 *      count of guides at the grade
 	 *
 	 * @param unknown $catid

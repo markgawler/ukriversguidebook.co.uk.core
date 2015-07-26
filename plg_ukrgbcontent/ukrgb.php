@@ -20,7 +20,14 @@ class plgContentUkrgb extends JPlugin {
 		{
 			$this->_subject->setError('JERROR_NOT_A_FORM');
 			return false;
-		}
+		} 
+		$name = $form->getName();
+		$path = explode('.',$name);
+		if ($path[0] != 'com_content')
+		{
+			return true;
+		} 
+		
 		// Add the extra fields to the form.
 		JForm::addFormPath(dirname(__FILE__) . '/fields');
 		$form->loadFile('riverguide', false);
