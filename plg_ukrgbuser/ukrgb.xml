@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="user" method="upgrade">
+	<name>PLG_USER_UKRGB</name>
+	<creationDate>October 2015</creationDate>
+	<author>Mark Gawler</author>
+	<authorEmail>markg@wler.co.uk</authorEmail>
+	<authorUrl>www.ukriversguidebook.co.uk</authorUrl>
+	<copyright>Copyright UKRGB</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<version>0.0.1</version>
+	<description>PLG_USER_UKRGB_XML_DESCRIPTION</description>
+
+	<files>
+	    <folder>language</folder>
+   		<filename plugin="ukrgb">ukrgb.php</filename>
+   		<filename>index.html</filename>
+	</files>
+	
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_user_ukrgb.sys.ini</language>
+	</languages>
+	
+</extension>
+

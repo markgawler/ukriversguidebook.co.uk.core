@@ -13,6 +13,11 @@ cd plg_ukrgbsystem
 zip -qr ../plg_ukrgbsystem .
 
 cd ..
+echo "User Plugin, Creating Zip..."
+cd plg_ukrgbuser
+zip -qr ../plg_ukrgbuser .
+
+cd ..
 echo "Content Plugin, Creating Zip..."
 cd plg_ukrgbcontent
 zip -qr ../plg_ukrgbcontent .

@@ -22,6 +22,14 @@ class plgSystemUkrgb extends JPlugin {
 		$app = JFactory::getApplication();
 		if ($app->isSite()){
 			
+			// Display update email message
+			$session = JFactory::getSession();
+			if ($session->get('ukrgbUpdateEmail')){
+				$app->enqueueMessage("A Messge");
+			}
+			
+			
+			// Display PayPal button
 			$active_menu = $app->getMenu()->getActive();
 			
 			if (!is_null($active_menu) && $active_menu->id == $this->params->get('forummenuitem')){
