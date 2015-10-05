@@ -16,6 +16,20 @@ class plgSystemUkrgb extends JPlugin {
 	 * Plugin to add the PayPal donate button to forum pages 
 	 *
 	 */
+	
+	/**
+	* Method to register custom library.
+	*
+	* return  void
+	*/
+	public function onAfterInitialise()
+	{
+		require JPATH_LIBRARIES .'/ukrgbaws' . '/vendor/autoload.php';
+	}
+	
+	/*
+	 * Befor Render add the PayPal donate button to forum pages
+	 */
 	public function onBeforeRender()
 	{	
 		

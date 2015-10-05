@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="library" version="3.1" method="upgrade">
+    <name>Amazon Web Services SDK</name>
+    <libraryname>ukrgbaws</libraryname>
+    <version>3.5.0</version>
+    <description>UKRGB Joomla Library for the Amazon Web Services SDK</description>
+    <creationDate>October 2015</creationDate>
+    <author>Mark Gawler</author>
+    <authorEmail>markg@wler.co.uk</authorEmail>
+    <copyright>Copyright UKRGB / Amazon</copyright>
+    <license>Apache License</license>
+    <authorUrl>www.ukriversguidebook.co.uk</authorUrl>
+    <files folder="libraries">
+        <folder>vendor</folder>
+    </files>
+</extension>

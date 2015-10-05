@@ -22,4 +22,10 @@ echo "Content Plugin, Creating Zip..."
 cd plg_ukrgbcontent
 zip -qr ../plg_ukrgbcontent .
 
+
+cd ..
+echo "AWS Library, Creating Zip..."
+cd lib_ukrgbaws
+zip -qr  ../lib_ukrgbaws . -x composer.* -x setup.sh*
+
 echo "Done."

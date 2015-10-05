@@ -18,10 +18,29 @@ class plgUserUkrgb extends JPlugin {
 	 */
 	public function onUserAfterLogin($options)
 	{	
-		$session =& JFactory::getSession();
-		$session->set( 'ukrgbUpdateEmail', True );
 
+		$email = $options['user']->email;
 		
+		$sdk = new Aws\Sdk([
+				'region'   => 'eu-west-1',
+				'version'  => 'latest'
+		]);
 		
+		$dynamodb = $sdk->createDynamoDb();
+		
+		$response = $dynamodb->query([
+				'TableName' => 'emailBounce',
+				'KeyConditionExpression' => 'RecipientsEmail = :v_id',
+				'ExpressionAttributeValues' =>  [
+						':v_id' => ['S' => $email]
+				]
+		]);
+
+		if (count($response['Items']) != 0) 
+		{
+			$session = JFactory::getSession();
+			$session->set( 'ukrgbUpdateEmail', True );
+		}
+		return true;
 	}
 }
