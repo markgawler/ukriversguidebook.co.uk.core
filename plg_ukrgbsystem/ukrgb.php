@@ -37,10 +37,11 @@ class plgSystemUkrgb extends JPlugin {
 		$app = JFactory::getApplication();
 		if ($app->isSite()){
 			
-			// Display update email message
+			// Display update email message if a bounce has been detected and we are not updating the user profile
 			$session = JFactory::getSession();
-			if ($session->get('ukrgbUpdateEmail')){
-				$app->enqueueMessage(JText::_('PLG_SYSTEM_UKRGB_UPDATE_EMAIL').'<br> <a href="/index.php?option=com_users&lang=en&layout=edit&view=profile">Update Profile</a>');
+			if ($session->get('ukrgbUpdateEmail') and $app->input->getCmd('option','') != 'com_users')
+			{					
+				$app->enqueueMessage(JText::_('PLG_SYSTEM_UKRGB_UPDATE_EMAIL').' <a href="/index.php?option=com_users&lang=en&layout=edit&view=profile">Update Profile</a>');
 			}
 			
 			
