@@ -16,6 +16,7 @@ class plgSystemUkrgb extends JPlugin {
 	 * Plugin to add the PayPal donate button to forum pages 
 	 *
 	 */
+	protected $autoloadLanguage = true;
 	
 	/**
 	* Method to register custom library.
@@ -39,7 +40,7 @@ class plgSystemUkrgb extends JPlugin {
 			// Display update email message
 			$session = JFactory::getSession();
 			if ($session->get('ukrgbUpdateEmail')){
-				$app->enqueueMessage("A Messge");
+				$app->enqueueMessage(JText::_('PLG_SYSTEM_UKRGB_UPDATE_EMAIL').'<br> <a href="/index.php?option=com_users&lang=en&layout=edit&view=profile">Update Profile</a>');
 			}
 			
 			

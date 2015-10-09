@@ -43,4 +43,18 @@ class plgUserUkrgb extends JPlugin {
 		}
 		return true;
 	}
+	
+	/**
+	*$oldUser - An associative array of the columns in the user table (current values).
+	* $isnew - Boolean to identify if this is a new user (true - insert) or an existing one (false - update)
+	* $newUser - An associative array of the columns in the user table (new values).
+	**/
+	public function onUserBeforeSave($oldUser, $isnew, $newUser)
+	{
+		$session = JFactory::getSession();
+		if (!$session->get('ukrgbUpdateEmail') or !isnew ){
+		
+		
+		return true;
+	}
 }

@@ -7,7 +7,7 @@
 	<authorUrl>www.ukriversguidebook.co.uk</authorUrl>
 	<copyright>Copyright UKRGB</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<description>PLG_SYSTEM_UKRGB_XML_DESCRIPTION</description>
 
 	<files>
@@ -17,6 +17,7 @@
 	</files>
 	
 	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_ukrgb.ini</language>
 		<language tag="en-GB">en-GB/en-GB.plg_system_ukrgb.sys.ini</language>
 	</languages>
 	
