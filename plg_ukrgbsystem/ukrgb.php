@@ -41,7 +41,7 @@ class plgSystemUkrgb extends JPlugin {
 			$session = JFactory::getSession();
 			if ($session->get('ukrgbUpdateEmail') and $app->input->getCmd('option','') != 'com_users')
 			{					
-				$app->enqueueMessage(JText::_('PLG_SYSTEM_UKRGB_UPDATE_EMAIL').' <a href="/index.php?option=com_users&lang=en&layout=edit&view=profile">Update Profile</a>');
+				$app->enqueueMessage(JText::_('PLG_SYSTEM_UKRGB_UPDATE_EMAIL').' <a href="'. JRoute::_('index.php?option=com_users&lang=en&layout=edit&view=profile').'">Update Profile</a>');
 			}
 			
 			

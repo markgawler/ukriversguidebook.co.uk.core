@@ -77,11 +77,11 @@ class plgUserUkrgb extends JPlugin {
 								'RecipientsEmail' => [ 'S' => $oldUser['email']]
 						],
 						'ExpressionAttributeValues' =>  [
-								':val1' => ['S' => $newUser['email']]
+								':val1' => ['S' => $newUser['email']],
+								':val2' => ['S' => JFactory::getDate()->toSql()]
 						] ,
-    					'UpdateExpression' => 'set newEmail = :val1'
+    					'UpdateExpression' => 'set newEmail = :val1, updateDate = :val2'
 				]);
-				
 				
 				$session->set( 'ukrgbUpdateEmail', False );
 			}
