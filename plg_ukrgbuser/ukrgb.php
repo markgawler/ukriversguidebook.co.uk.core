@@ -18,25 +18,45 @@ class plgUserUkrgb extends JPlugin {
 	 */
 	protected $autoloadLanguage = true;
 	
+	/**
+	 * On Failed login inform user that usernames are case sensative if the username exists
+	 * @param unknown $user
+	 * @param string $options
+	 */
+	public function onUserLoginFailure($user, $options=null)
+	{
+		$username = strtolower($user['username']);
+		
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query
+		->select($db->quoteName(array('name')))
+		->from($db->quoteName('#__users'))
+		->where($db->quoteName('username') . ' LIKE '. $db->quote($username));
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		if ($result)
+		{
+			$app = JFactory::getApplication();
+			$app->enqueueMessage(JText::_('PLG_USER_UKRGB_CASE_SENSITIVE_USER') .'<b>"'. $result .'"</b>'. JText::_('PLG_USER_UKRGB_CASE_SENSITIVE_USER_PF'));
+		}
+	}
 	
+	/**
+	 * After login check to se if the users email has bounced, notify user if that is the case
+	 * @param unknown $options
+	 * @return boolean
+	 */
 	public function onUserAfterLogin($options)
 	{	
-
 		$email = $options['user']->email;
 		
-		$sdk = new Aws\Sdk([
-				'region'   => 'eu-west-1',
-				'version'  => 'latest'
-		]);
-		
-		$dynamodb = $sdk->createDynamoDb();
+		$dynamodb = $this->getDBClient();
 		
 		$response = $dynamodb->query([
 				'TableName' => 'emailBounce',
 				'KeyConditionExpression' => 'RecipientsEmail = :v_id',
-				'ExpressionAttributeValues' =>  [
-						':v_id' => ['S' => $email]
-				]
+				'ExpressionAttributeValues' =>  [':v_id' => ['S' => $email]]
 		]);
 
 		if (count($response['Items']) != 0) 
@@ -47,11 +67,14 @@ class plgUserUkrgb extends JPlugin {
 		return true;
 	}
 	
+
 	/**
-	*$oldUser - An associative array of the columns in the user table (current values).
-	* $isnew - Boolean to identify if this is a new user (true - insert) or an existing one (false - update)
-	* $newUser - An associative array of the columns in the user table (new values).
-	**/
+	 * Dont let the user save there profile with an email that has bounced.
+	 * 
+	 * @param unknown $oldUser - An associative array of the columns in the user table (current values).
+	 * @param unknown $isnew   - Boolean to identify if this is a new user (true - insert) or an existing one (false - update)
+	 * @param unknown $newUser - An associative array of the columns in the user table (new values).
+	 */
 	public function onUserBeforeSave($oldUser, $isnew, $newUser)
 	{
 		// Make sure the email is updated if a bounce has been detected.
@@ -60,16 +83,11 @@ class plgUserUkrgb extends JPlugin {
 			if ($newUser['email'] == $oldUser['email'])
 			{
 				$app = JFactory::getApplication();
-				$app->enqueueMessage(JText::_('PLG_USER_UKRGB_EMAIL_NOT_CHANGED'));
+				$app->enqueueMessage(JText::_('PLG_USER_UKRGB_EMAIL_NOT_CHANGED'). '<a href="mailto:admin@ukriversguidebook.co.uk">Email Admin</a>');
 				return false;
 			}
 			else {
-				$sdk = new Aws\Sdk([
-						'region'   => 'eu-west-1',
-						'version'  => 'latest'
-				]);
-				
-				$dynamodb = $sdk->createDynamoDb();
+				$dynamodb = $this->getDBClient();
 				
 				$response = $dynamodb->updateItem([
 						'TableName' => 'emailBounce',
@@ -88,5 +106,16 @@ class plgUserUkrgb extends JPlugin {
 		}		
 		
 		return true;
+	}
+	
+	private function getDBClient (){
+		$sdk = new Aws\Sdk([
+				'region'   => 'eu-west-1',
+				'version'  => 'latest'
+		]);
+		
+		$dynamodb = $sdk->createDynamoDb();
+		
+		return $dynamodb;
 	}
 }
