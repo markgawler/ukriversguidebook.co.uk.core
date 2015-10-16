@@ -35,7 +35,9 @@ class plgUserUkrgb extends JPlugin {
 		->where($db->quoteName('username') . ' LIKE '. $db->quote($username));
 		$db->setQuery($query);
 		$result = $db->loadResult();
-		if ($result)
+		// only display the warning if the username is found in the DB and dose not match the caseing 
+		// of the entered name, ie. dont display for invalid password and invlid password.
+		if ($result and $user['usename'] != $result)
 		{
 			$app = JFactory::getApplication();
 			$app->enqueueMessage(JText::_('PLG_USER_UKRGB_CASE_SENSITIVE_USER') .'<b>"'. $result .'"</b>'. JText::_('PLG_USER_UKRGB_CASE_SENSITIVE_USER_PF'));
