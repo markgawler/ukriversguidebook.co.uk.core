@@ -49,15 +49,18 @@ class plgContentUkrgb extends JPlugin {
 	{
 		if ($context == 'com_content.article' && isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
-			$db = JFactory::getDBO();
-		
-			$query = $db->getQuery(true)
-			->select(array('summary','grade'))
-			->from('#__ukrgb_riverguide')
-			->where('id  = ' . $data->id);
+			if (isset($data->id))
+			{
+				$db = JFactory::getDBO();
 			
-			$db->setQuery($query);
-			$rg = $db->loadObject();
+				$query = $db->getQuery(true)
+				->select(array('summary','grade'))
+				->from('#__ukrgb_riverguide')
+				->where('id  = ' . $data->id);
+				
+				$db->setQuery($query);
+				$rg = $db->loadObject();
+			}
 			if (!empty($rg))
 			{
 				$data->riverguide = array(
