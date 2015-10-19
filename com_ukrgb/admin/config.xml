@@ -61,10 +61,22 @@
 				>
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 		</field>
-
-		
 	
 	</fieldset>
+
+	<fieldset name="advanced" label="COM_UKRGB_ADV"
+		description="COM_UKRGB_ADV_DESCRIPTION">
+		
+		<field name="debug" type="radio" class="btn-group"  default="0" 
+			label="COM_UKRGB_DEBUG"
+			description="COM_UKRGB_DEBUG_DEC">
+    		<option value="1">JYES</option>
+    		<option value="0">JNO</option>
+		</field>
+		
+		
+	</fieldset>
+
 	
 	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC"
 		label="JCONFIG_PERMISSIONS_LABEL">

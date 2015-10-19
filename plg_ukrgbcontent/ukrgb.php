@@ -8,8 +8,12 @@
 */
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
+jimport('joomla.log.log');
+
+require_once JPATH_ROOT .'/components/com_ukrgb/helpers/log.php';
 
 class plgContentUkrgb extends JPlugin {
+	private $logger;
 	
 	protected $autoloadLanguage = true;
 	
@@ -75,6 +79,8 @@ class plgContentUkrgb extends JPlugin {
 	 
 	public function onContentBeforeSave($context, $article, $isNew) 
 	{
+		$this->init();
+		$this->logger->log("onContentBeforeSave", JLog::DEBUG);
 		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
 		{
 			$attribs = json_decode($article->attribs);	
@@ -126,7 +132,13 @@ class plgContentUkrgb extends JPlugin {
 		}
 	}
 	
-	
+	private function init()
+	{
+		jimport('joomla.application.component.helper');
+		$config = JComponentHelper::getParams('com_ukrgb');
+		
+		$this->logger = new UkrgbLogger($config->get('logLevel'));
+	}
 	
 	private function is_riverguide_category($catid)
 	{
