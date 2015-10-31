@@ -11,7 +11,7 @@ class UkrgbLogger {
 
 	const LogCategory = 'ukrgb';
 
-	function __construct($log_level)
+	function __construct()
 	{
 		$priorities = JLog::ALL;
 		JLog::addLogger(array(
@@ -28,9 +28,7 @@ class UkrgbLogger {
 		jimport('joomla.application.component.helper');
 
 		if (JComponentHelper::getParams('com_ukrgb')->get('debug')){
-			error_log($message);
 			JLog::add($message, $priority, self::LogCategory);
-			
 			JFactory::getApplication()->enqueueMessage($message,'notice');
 		}
 	}

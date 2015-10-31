@@ -134,10 +134,7 @@ class plgContentUkrgb extends JPlugin {
 	
 	private function init()
 	{
-		jimport('joomla.application.component.helper');
-		$config = JComponentHelper::getParams('com_ukrgb');
-		
-		$this->logger = new UkrgbLogger($config->get('logLevel'));
+		$this->logger = new UkrgbLogger();
 	}
 	
 	private function is_riverguide_category($catid)
