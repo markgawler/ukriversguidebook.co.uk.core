@@ -23,7 +23,7 @@ class UkrgbLogger {
 	}
 
 
-	function log($message, $priority)
+	function log($message, $priority = JLog::DEBUG)
 	{
 		jimport('joomla.application.component.helper');
 

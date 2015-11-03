@@ -19,7 +19,8 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentPrepareForm($form, $data)
 	{
-		
+		$this->init();
+		$this->logger->log("onContentPrepareForm");
 		if (!($form instanceof JForm))
 		{
 			$this->_subject->setError('JERROR_NOT_A_FORM');
@@ -43,6 +44,7 @@ class plgContentUkrgb extends JPlugin {
 			{
 				$form->setValue('summary','attribs',$data->riverguide['summary']);
 				$form->setValue('grade','attribs',$data->riverguide['grade']);
+				
 			}
 		}
 		return true;
@@ -51,6 +53,8 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentPrepareData($context, $data)
 	{
+		$this->init();
+		$this->logger->log("onContentPrepareData");
 		if ($context == 'com_content.article' && isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
 			if (isset($data->id))
@@ -80,8 +84,8 @@ class plgContentUkrgb extends JPlugin {
 	public function onContentBeforeSave($context, $article, $isNew) 
 	{
 		$this->init();
-		$this->logger->log("onContentBeforeSave", JLog::DEBUG);
-		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
+		$this->logger->log("onContentBeforeSave" .$context );
+		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
 			$attribs = json_decode($article->attribs);	
 			if ($attribs->grade == "-1"){
@@ -99,7 +103,7 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentAfterSave($context, $article, $isNew)
 	{
-		if ($context == 'com_content.article' && $this->is_riverguide_category($article->catid))
+		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
 			$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());	
