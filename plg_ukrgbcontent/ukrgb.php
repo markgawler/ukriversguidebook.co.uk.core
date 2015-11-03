@@ -20,7 +20,7 @@ class plgContentUkrgb extends JPlugin {
 	public function onContentPrepareForm($form, $data)
 	{
 		$this->init();
-		$this->logger->log("onContentPrepareForm");
+		$this->logger->log("onContentPrepareForm ");
 		if (!($form instanceof JForm))
 		{
 			$this->_subject->setError('JERROR_NOT_A_FORM');
@@ -33,12 +33,13 @@ class plgContentUkrgb extends JPlugin {
 			return true;
 		} 
 		
-		// Add the extra fields to the form.
-		JForm::addFormPath(dirname(__FILE__) . '/fields');
-		$form->loadFile('riverguide', false);
-		
 		if (isset($data->catid) && $this->is_riverguide_category($data->catid))
-		{	
+		{
+			// Add the extra fields to the form.
+			JForm::addFormPath(dirname(__FILE__) . '/fields');
+			$form->loadFile('riverguide', false);
+		
+
 			// load the data in to the form
 			if (!empty($data->riverguide))
 			{
@@ -54,7 +55,7 @@ class plgContentUkrgb extends JPlugin {
 	public function onContentPrepareData($context, $data)
 	{
 		$this->init();
-		$this->logger->log("onContentPrepareData");
+		$this->logger->log("onContentPrepareData " . $context);
 		if ($context == 'com_content.article' && isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
 			if (isset($data->id))
@@ -84,10 +85,11 @@ class plgContentUkrgb extends JPlugin {
 	public function onContentBeforeSave($context, $article, $isNew) 
 	{
 		$this->init();
-		$this->logger->log("onContentBeforeSave" .$context );
+		$this->logger->log("onContentBeforeSave " . $context);
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
-			$attribs = json_decode($article->attribs);	
+			$attribs = json_decode($article->attribs);
+			
 			if ($attribs->grade == "-1"){
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GRADE_MISSING") , 'error');
@@ -103,6 +105,9 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentAfterSave($context, $article, $isNew)
 	{
+		$this->init();
+		$this->logger->log("onContentAfterSave " . $context);
+		
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
