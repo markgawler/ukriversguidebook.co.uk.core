@@ -33,19 +33,18 @@ class plgContentUkrgb extends JPlugin {
 			return true;
 		} 
 		
+		
+		// Add the extra fields to the form.
+		JForm::addFormPath(dirname(__FILE__) . '/fields');
+		$form->loadFile('riverguide', false);
+		
 		if (isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
-			// Add the extra fields to the form.
-			JForm::addFormPath(dirname(__FILE__) . '/fields');
-			$form->loadFile('riverguide', false);
-		
-
 			// load the data in to the form
 			if (!empty($data->riverguide))
 			{
 				$form->setValue('summary','attribs',$data->riverguide['summary']);
 				$form->setValue('grade','attribs',$data->riverguide['grade']);
-				
 			}
 		}
 		return true;
@@ -88,15 +87,15 @@ class plgContentUkrgb extends JPlugin {
 		$this->logger->log("onContentBeforeSave " . $context);
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
+
 			$attribs = json_decode($article->attribs);
-			
+			//$this->logger->log(" - Grade: " . $attribs->grade);
 			if ($attribs->grade == "-1"){
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GRADE_MISSING") , 'error');
 
 				return false;
 			}
-			
 		}
 		return true;
 	}
