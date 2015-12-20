@@ -54,17 +54,18 @@ class plgUserUkrgb extends JPlugin {
 		$email = $options['user']->email;
 		
 		$dynamodb = $this->getDBClient();
-		
-		$response = $dynamodb->query([
-				'TableName' => 'emailBounce',
-				'KeyConditionExpression' => 'RecipientsEmail = :v_id',
-				'ExpressionAttributeValues' =>  [':v_id' => ['S' => $email]]
-		]);
-
-		if (count($response['Items']) != 0) 
-		{
-			$session = JFactory::getSession();
-			$session->set( 'ukrgbUpdateEmail', True );
+		if ($dynamodb != NULL){
+			$response = $dynamodb->query([
+					'TableName' => 'emailBounce',
+					'KeyConditionExpression' => 'RecipientsEmail = :v_id',
+					'ExpressionAttributeValues' =>  [':v_id' => ['S' => $email]]
+			]);
+	
+			if (count($response['Items']) != 0) 
+			{
+				$session = JFactory::getSession();
+				$session->set( 'ukrgbUpdateEmail', True );
+			}
 		}
 		return true;
 	}
@@ -110,14 +111,19 @@ class plgUserUkrgb extends JPlugin {
 		return true;
 	}
 	
+	
 	private function getDBClient (){
-		$sdk = new Aws\Sdk([
-				'region'   => 'eu-west-1',
-				'version'  => 'latest'
-		]);
-		
-		$dynamodb = $sdk->createDynamoDb();
-		
-		return $dynamodb;
+		if (class_exists('Aws\Sdk')){
+			$sdk = new Aws\Sdk([
+					'region'   => 'eu-west-1',
+					'version'  => 'latest'
+			]);
+			
+			$dynamodb = $sdk->createDynamoDb();
+			
+			return $dynamodb;
+		}else{
+			return NULL;
+		}
 	}
 }
