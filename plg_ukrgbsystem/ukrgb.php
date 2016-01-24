@@ -28,9 +28,9 @@ class plgSystemUkrgb extends JPlugin {
 		require JPATH_LIBRARIES .'/ukrgbaws' . '/vendor/autoload.php';
 	}
 	
-	/*
-	 * Befor Render add the PayPal donate button to forum pages
-	 */
+	/**
+	* Befor Render add the PayPal donate button to forum pages
+	**/
 	public function onBeforeRender()
 	{	
 		
@@ -81,6 +81,31 @@ SCRIPT;
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * Plugin to remove sh040 canonical link, leaving only the phpBB link.
+	 */
+	public function onAfterRender()
+	{
+		$app = JFactory::getApplication();
+		if ($app->isSite()){
+			$active_menu = $app->getMenu()->getActive();
+			if (!is_null($active_menu) && $active_menu->id == $this->params->get('forummenuitem')){
+		
+				$buffer = JResponse::getBody();
+				$canonicalPattern = '#\<link[^>]+rel\s*=\s*"canonical"[^>]+\>#siU';
+				$matches = array();
+				$canonicalCount = preg_match_all($canonicalPattern, $buffer, $matches);
+				foreach ($matches[0] as $match){
+					if (strpos($match, '/view,plugin/') !== false) {
+						$page = JResponse::getBody();
+						$page = str_replace($match, '' , $page);
+						JResponse::setBody($page);
+					}
+				}				
+			}	
 		}
 	}
 }
