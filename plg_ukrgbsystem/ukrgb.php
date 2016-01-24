@@ -93,18 +93,18 @@ SCRIPT;
 		if ($app->isSite()){
 			$active_menu = $app->getMenu()->getActive();
 			if (!is_null($active_menu) && $active_menu->id == $this->params->get('forummenuitem')){
-		
-				$buffer = JResponse::getBody();
-				$canonicalPattern = '#\<link[^>]+rel\s*=\s*"canonical"[^>]+\>#siU';
+				
+				$page = $app->getBody();
+				$canonicalPattern = '#\<link[^>]+rel\s*=\s*"canonical"[^>]+\>#siU';	
 				$matches = array();
-				$canonicalCount = preg_match_all($canonicalPattern, $buffer, $matches);
+				$canonicalCount = preg_match_all($canonicalPattern, $page, $matches);
+				
 				foreach ($matches[0] as $match){
 					if (strpos($match, '/view,plugin/') !== false) {
-						$page = JResponse::getBody();
 						$page = str_replace($match, '' , $page);
-						JResponse::setBody($page);
+						$app->setBody($page);
 					}
-				}				
+				}
 			}	
 		}
 	}
