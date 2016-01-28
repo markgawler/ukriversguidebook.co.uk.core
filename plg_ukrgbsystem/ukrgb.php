@@ -100,11 +100,14 @@ SCRIPT;
 				$canonicalCount = preg_match_all($canonicalPattern, $page, $matches);
 				
 				foreach ($matches[0] as $match){
+					// delete the non phpBB canonical
 					if (strpos($match, '/view,plugin/') !== false) {
 						$page = str_replace($match, '' , $page);
-						$app->setBody($page);
 					}
 				}
+				// remove extraneous /view,plugin/
+				$page = str_replace('/view,plugin/', '/' , $page);
+				$app->setBody($page);
 			}	
 		}
 	}
