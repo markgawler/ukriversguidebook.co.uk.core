@@ -8,7 +8,7 @@
 	<authorUrl>http://www.ukriversguidebook.co.uk</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.4</version>
+	<version>0.0.6</version>
 	<description>UKRGB component, paypal donations</description>
 
 	<install> <!-- Runs on install -->
@@ -22,7 +22,7 @@
 		</sql>
 	</uninstall>
 
-	<update> <!-- Runs on update; New in  2.5-->
+	<update> <!-- Runs on update -->
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>
 		</schemas>
@@ -51,6 +51,8 @@
 				alt="Ukrgb/Donation">Donation</menu>
 				<menu link="option=com_ukrgb&amp;view=tagtool" view="tagtool" img="class:generic"
 				alt="Ukrgb/Tagtool">River Grading Tool</menu>
+				<menu link="option=com_ukrgb&amp;view=eventmanager" view="eventmanager" img="class:generic"
+				alt="Ukrgb/Eventmanager">Event Manager</menu>
 				
 			</submenu>
 		
@@ -68,6 +70,7 @@
 			<folder>tables</folder>
 			<folder>fields</folder>
 			<folder>controllers</folder>
+			<folder>helpers</folder>
 		</files>
 		<languages folder="admin">
 			<language tag="en-GB">language/en-GB/en-GB.com_ukrgb.ini</language>
