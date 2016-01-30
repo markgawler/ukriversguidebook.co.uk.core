@@ -135,9 +135,9 @@ $sortFields = $this->getSortFields();
 							<?php endif; ?>
 							<?php if ($canEdit) : ?>
 								<a href="<?php echo JRoute::_('index.php?option=com_ukrgb&task=calendar.edit&id='.(int) $item->id); ?>">
-									<?php echo $this->escape($item->name); ?></a>
+									<?php echo $this->escape($item->title); ?></a>
 							<?php else : ?>
-									<?php echo $this->escape($item->name); ?>
+									<?php echo $this->escape($item->title); ?>
 							<?php endif; ?>
 							<span class="small">
 								<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>

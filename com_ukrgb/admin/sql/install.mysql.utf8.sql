@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `#__ukrgb_events` (
 CREATE TABLE IF NOT EXISTS `#__ukrgb_calendar` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT ,
   `catid` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(250) NOT NULL DEFAULT '',
+  `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(255) NOT NULL DEFAULT '' ,
   `description` text NOT NULL ,
   `hits` int(11) NOT NULL DEFAULT '0',

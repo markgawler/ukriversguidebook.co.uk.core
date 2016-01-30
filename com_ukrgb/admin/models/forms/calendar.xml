@@ -6,7 +6,7 @@
 		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL"
 			readonly="true" class="readonly" description="JGLOBAL_FIELD_ID_DESC" />
 
-		<field name="name" type="text" class="inputbox input-xxlarge input-large-text" size="40"
+		<field name="title" type="text" class="inputbox input-xxlarge input-large-text" size="40"
 			label="JGLOBAL_TITLE" description="COM_UKRGB_CALENDAR_NAME_DESC"
 			required="true" />
 			
@@ -15,7 +15,7 @@
 
 		<field name="catid" type="category" extension="COM_UKRGB"
 			label="JCATEGORY" description="COM_UKRGB_FIELD_CATEGORY_DESC"
-			class="inputbox">
+			class="inputbonx">
 		</field>
 
 		<field name="description" label="Description"

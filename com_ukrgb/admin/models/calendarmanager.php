@@ -26,7 +26,7 @@ class UkrgbModelCalendarManager extends JModelList
 		if (empty($config['filter_fields'])) {
 			$config['filter_fields'] = array(
 					'id', 'a.id',
-					'name', 'a.name',
+					'title', 'a.title',
 					'alias', 'a.alias',
 					'checked_out', 'a.checked_out',
 					'checked_out_time', 'a.checked_out_time',
@@ -80,7 +80,7 @@ class UkrgbModelCalendarManager extends JModelList
 
 		// List state information.
 
-		parent::populateState('a.name', 'asc');
+		parent::populateState('a.title', 'asc');
 	}
 
 	/**
@@ -121,7 +121,7 @@ class UkrgbModelCalendarManager extends JModelList
 		$query->select(
 			$this->getState(
 				'list.select',
-				'a.id, a.name, a.alias, a.checked_out, a.checked_out_time, a.catid,' .
+				'a.id, a.title, a.alias, a.checked_out, a.checked_out_time, a.catid,' .
 					'a.state, a.access, ' .
 					'a.language, a.publish_up, a.publish_down,' .
 					'a.created_by'
@@ -228,7 +228,7 @@ class UkrgbModelCalendarManager extends JModelList
 		$orderDirn = $this->state->get('list.direction');
 		if ($orderCol == 'a.ordering' || $orderCol == 'category_title')
 		{
-			$orderCol = 'c.name ' . $orderDirn . ', a.ordering';
+			$orderCol = 'c.title ' . $orderDirn . ', a.ordering';
 		}
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 

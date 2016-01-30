@@ -78,7 +78,7 @@ class UkrgbTableCalendar extends JTable
 		$query = $db->getQuery(true);
 		$query->select('id');
 		$query->from($db->quoteName('#__ukrgb_calendar'));
-		$query->where('name = ' . $db->quote($this->name) .
+		$query->where('title = ' . $db->quote($this->title) .
 				' AND catid = ' . (int) $this->catid);
 		$db->setQuery($query);
 
@@ -89,7 +89,7 @@ class UkrgbTableCalendar extends JTable
 		}
 
 		if (empty($this->alias)) {
-			$this->alias = $this->name;
+			$this->alias = $this->title;
 		}
 		$this->alias = JApplication::stringURLSafe($this->alias);
 		if (trim(str_replace('-','',$this->alias)) == '') {

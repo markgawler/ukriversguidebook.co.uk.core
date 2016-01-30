@@ -159,11 +159,11 @@ class UkrgbModelCalendar extends JModelAdmin
 		$date = JFactory::getDate();
 		$user = JFactory::getUser();
 		
-		$table->name = htmlspecialchars_decode($table->name, ENT_QUOTES);
+		$table->title = htmlspecialchars_decode($table->title, ENT_QUOTES);
 		$table->alias = JApplication::stringURLSafe($table->alias);
 		
 		if (empty($table->alias)) {
-			$table->alias = JApplication::stringURLSafe($table->name);
+			$table->alias = JApplication::stringURLSafe($table->title);
 		}
 		
 		if (empty($table->id))
@@ -206,8 +206,8 @@ class UkrgbModelCalendar extends JModelAdmin
 		// Alter the name for save as copy
 		if ($app->input->get('task') == 'save2copy')
 		{
-			list($name, $alias) = $this->generateNewName($data['catid'], $data['alias'], $data['name']);
-			$data['name']	= $name;
+			list($name, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+			$data['title']	= $name;
 			$data['alias']	= $alias;
 			$data['state']	= 0;
 		}
@@ -215,22 +215,22 @@ class UkrgbModelCalendar extends JModelAdmin
 	}
 	
 	/**
-	 * Method to change the name & alias.
+	 * Method to change the title & alias.
 	 *
 	 * @param   integer  $category_id  The id of the parent.
 	 * @param   string   $alias        The alias.
-	 * @param   string   $name         The name.
+	 * @param   string   $name         The title.
 	 *
-	 * @return  array  Contains the modified name and alias.
+	 * @return  array  Contains the modified title and alias.
 	 */
-	protected function generateNewName($category_id, $alias, $name)
+	protected function generateNewTitle($category_id, $alias, $name)
 	{
 		// Alter the name & alias
 		$table = $this->getTable();
 	
 		while ($table->load(array('alias' => $alias, 'catid' => $category_id)))
 		{
-			if ($name == $table->name)
+			if ($name == $table->title)
 			{
 				$name = JString::increment($name);
 			}
