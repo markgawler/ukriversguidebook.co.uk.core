@@ -16,7 +16,7 @@ class UkrgbTableEvent extends JTable
 	 */
 	public function __construct(&$db)
 	{
-		parent::__construct('#__ukrgb_cal_events', 'id', $db);
+		parent::__construct('#__ukrgb_events', 'id', $db);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class UkrgbTableEvent extends JTable
 		$db = $this->_db;
 		$query = $db->getQuery(true);
 		$query->select('id');
-		$query->from($db->quoteName('#__ukrgb_cal_events'));
+		$query->from($db->quoteName('#__ukrgb_events'));
 		$query->where('title = ' . $db->quote($this->title) .
 				' AND catid = ' . (int) $this->catid);
 		$db->setQuery($query);

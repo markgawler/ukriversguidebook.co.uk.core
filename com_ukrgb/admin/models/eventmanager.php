@@ -130,7 +130,7 @@ class UkrgbModelEventManager extends JModelList
 					'a.created_by'
 			)
 		);
-		$query->from($db->quoteName('#__ukrgb_cal_events') . ' AS a');
+		$query->from($db->quoteName('#__ukrgb_events') . ' AS a');
 
 		// Join over the language
 		$query->select('l.title AS language_title')
@@ -253,7 +253,7 @@ class UkrgbModelEventManager extends JModelList
 		// Construct the query
 		$query->select('u.id AS value, u.name AS text')
 		->from('#__users AS u')
-		->join('INNER', '#__ukrgb_cal_events AS c ON c.created_by = u.id')
+		->join('INNER', '#__ukrgb_events AS c ON c.created_by = u.id')
 		->group('u.id, u.name')
 		->order('u.name');
 	

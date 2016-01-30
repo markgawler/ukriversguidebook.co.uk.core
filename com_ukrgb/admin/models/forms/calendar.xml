@@ -7,7 +7,7 @@
 			readonly="true" class="readonly" description="JGLOBAL_FIELD_ID_DESC" />
 
 		<field name="name" type="text" class="inputbox input-xxlarge input-large-text" size="40"
-			label="JGLOBAL_NAME" description="COM_UKRGB_CALENDAR_NAME_DESC"
+			label="JGLOBAL_TITLE" description="COM_UKRGB_CALENDAR_NAME_DESC"
 			required="true" />
 			
 		<field name="alias" type="text" class="inputbox" size="40"

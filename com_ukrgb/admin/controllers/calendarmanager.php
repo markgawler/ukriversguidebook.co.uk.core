@@ -10,17 +10,17 @@
 defined('_JEXEC') or die;
 
 /**
- * Calandar list controller class.
+ * Calendar list controller class.
  *
  * @package     Joomla.Administrator
  * @subpackage  com_ukrgb
  */
-class UkrgbControllerCalandarManager extends JControllerAdmin
+class UkrgbControllerCalendarManager extends JControllerAdmin
 {
 	/**
 	 * Proxy for getModel.
 	 */
-	public function getModel($name = 'Calandar', $prefix = 'UkrgbModel', $config = array('ignore_request' => true))
+	public function getModel($name = 'Calendar', $prefix = 'UkrgbModel', $config = array('ignore_request' => true))
 	{
 		$model = parent::getModel($name, $prefix, $config);
 		return $model;

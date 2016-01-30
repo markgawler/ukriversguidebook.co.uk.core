@@ -182,7 +182,7 @@ class UkrgbModelEvent extends JModelAdmin
 			if (empty($table->ordering))
 			{
 				$db = JFactory::getDbo();
-				$db->setQuery('SELECT MAX(ordering) FROM #__ukrgb_cal_events');
+				$db->setQuery('SELECT MAX(ordering) FROM #__ukrgb_events');
 				$max = $db->loadResult();
 		
 				$table->ordering = $max + 1;
