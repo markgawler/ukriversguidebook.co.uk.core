@@ -40,35 +40,13 @@ class UkrgbHelper extends JHelperContent
 		JHtmlSidebar::addEntry(
 			JText::_('COM_UKRGB_SUBMENU_CALENDAR'),
 			'index.php?option=com_ukrgb&view=calendarmanager',
-			$vName == 'calendar'
+			$vName == 'calendarmanager'
+		);
+	
+		JHtmlSidebar::addEntry(
+			JText::_('COM_UKRGB_SUBMENU_SKILLS'),
+			'index.php?option=com_ukrgb&view=skillmanager',
+			$vName == 'skillmanager'
 		);
 	}
-
-	/**
-	 * Gets a list of the actions that can be performed.
-	 *
-	 * @param	int		The category ID.
-	 * @return	JObject
-	 */
-	/*public static function getActions($categoryId = 0)
-	{
-		$user	= JFactory::getUser();
-		$result	= new JObject;
-
-		if (empty($categoryId)) {
-			$assetName = 'com_ukrgb';
-		} else {
-			$assetName = 'com_ukrgb.category.'.(int) $categoryId;
-		}
-
-		$actions = array(
-				'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.own', 'core.edit.state', 'core.delete'
-		);
-
-		foreach ($actions as $action) {
-			$result->set($action, $user->authorise($action, $assetName));
-		}
-
-		return $result;
-	}*/
 }
