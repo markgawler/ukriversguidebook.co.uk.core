@@ -23,8 +23,8 @@ $canOrder	= $user->authorise('core.edit.state', 'com_ukrgb.category');
 $saveOrder	= $listOrder == 'a.ordering';
 if ($saveOrder)
 {
-	$saveOrderingUrl = 'index.php?option=com_ukrgb&task=calendarmanager.saveOrderAjax&tmpl=component';
-	JHtml::_('sortablelist.sortable', 'calendarList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
+	$saveOrderingUrl = 'index.php?option=com_ukrgb&task=skillmanager.saveOrderAjax&tmpl=component';
+	JHtml::_('sortablelist.sortable', 'skillList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 $sortFields = $this->getSortFields();
 ?>
@@ -46,7 +46,7 @@ $sortFields = $this->getSortFields();
 	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&view=calendarmanager'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&view=skillmanager'); ?>" method="post" name="adminForm" id="adminForm">
 <?php if (!empty( $this->sidebar)) : ?>
 	<div id="j-sidebar-container" class="span2">
 		<?php echo $this->sidebar; ?>
@@ -64,7 +64,7 @@ $sortFields = $this->getSortFields();
 				<?php echo JText::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 			</div>
 		<?php else : ?>
-			<table class="table table-striped" id="calendarList">
+			<table class="table table-striped" id="skillList">
 				<thead>
 					<tr>
 						<th width="1%" class="nowrap center hidden-phone">
@@ -127,14 +127,14 @@ $sortFields = $this->getSortFields();
 							<?php echo JHtml::_('grid.id', $i, $item->id); ?>
 						</td>
 						<td class="center">
-							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'calendarmanager.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
+							<?php echo JHtml::_('jgrid.published', $item->state, $i, 'skillmanager.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 						</td>
 						<td class="nowrap has-context">
 							<?php if ($item->checked_out) : ?>
-								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'calendarmanager.', $canCheckin); ?>
+								<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'skillmanager.', $canCheckin); ?>
 							<?php endif; ?>
 							<?php if ($canEdit) : ?>
-								<a href="<?php echo JRoute::_('index.php?option=com_ukrgb&task=calendar.edit&id='.(int) $item->id); ?>">
+								<a href="<?php echo JRoute::_('index.php?option=com_ukrgb&task=skill.edit&id='.(int) $item->id); ?>">
 									<?php echo $this->escape($item->title); ?></a>
 							<?php else : ?>
 									<?php echo $this->escape($item->title); ?>

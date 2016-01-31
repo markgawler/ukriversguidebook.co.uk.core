@@ -59,7 +59,7 @@ class UkrgbViewskillmanager extends JViewLegacy
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
 
-		JToolbarHelper::title(JText::_('COM_UKRGB_MANAGER_SKILLMANAGER'), 'stack skillmanager');
+		JToolbarHelper::title(JText::_('COM_UKRGB_SKILL_MGR'), 'stack skillmanager');
 		
 		if (count($user->getAuthorisedCategories('com_ukrgb', 'core.create')) > 0)
 		{

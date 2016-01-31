@@ -33,7 +33,7 @@ JHtml::_('formbehavior.chosen', 'select');
 	
 	<div class="form-horizontal">
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'details')); ?>
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', empty($this->item->id) ? JText::_('COM_UKRGB_NEW_CALENDAR', true) : JText::sprintf('COM_UKRGB_EDIT_CALENDAR', $this->item->id, true)); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'details', JText::_('COM_UKRGB_CALENDAR', true)); ?>
 		<div class="row-fluid">
 			<div class="span9">
 				<div class="form-vertical ">

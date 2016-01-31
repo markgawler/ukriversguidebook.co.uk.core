@@ -26,7 +26,7 @@ class UkrgbHelper extends JHelperContent
 	public static function addSubmenu($vName = 'eventmanager')
 	{
 		JHtmlSidebar::addEntry(
-			JText::_('COM_UKRGB_SUBMENU_EVENTS_MANAGER'),
+			JText::_('COM_UKRGB_SUBMENU_EVENTS'),
 			'index.php?option=com_ukrgb&view=eventmanager',
 			$vName == 'eventmanager'
 		);

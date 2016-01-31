@@ -59,7 +59,7 @@ class UkrgbViewcalendarmanager extends JViewLegacy
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
 
-		JToolbarHelper::title(JText::_('COM_UKRGB_MANAGER_CALENDARMANAGER'), 'stack calendarmanager');
+		JToolbarHelper::title(JText::_('COM_UKRGB_CALENDAR_MGR'), 'stack calendarmanager');
 		
 		if (count($user->getAuthorisedCategories('com_ukrgb', 'core.create')) > 0)
 		{

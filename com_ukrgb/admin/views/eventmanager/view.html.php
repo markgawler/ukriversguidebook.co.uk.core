@@ -59,7 +59,7 @@ class UkrgbViewEventManager extends JViewLegacy
 		// Get the toolbar object instance
 		$bar = JToolBar::getInstance('toolbar');
 
-		JToolbarHelper::title(JText::_('COM_UKRGB_MANAGER_EVENTMANAGER'), 'stack eventmanager');
+		JToolbarHelper::title(JText::_('COM_UKRGB_EVENT_MGR'), 'stack eventmanager');
 		
 		if (count($user->getAuthorisedCategories('com_ukrgb', 'core.create')) > 0)
 		{
