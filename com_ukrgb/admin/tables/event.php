@@ -87,6 +87,11 @@ class UkrgbTableEvent extends JTable
 			$this->setError(JText::_('COM_UKRGB_ERR_TABLES_NAME'));
 			return false;
 		}
+		
+		if ($this->calid == 0){
+			$this->setError(JText::_('COM_UKRGB_NO_CALENDAR'));
+			return false;	
+		}
 
 		if (empty($this->alias)) {
 			$this->alias = $this->title;

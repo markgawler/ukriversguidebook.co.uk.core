@@ -47,6 +47,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<fieldset class="form-vertical">
 					<?php echo $this->form->getControlGroup('start_date'); ?>
 					<?php echo $this->form->getControlGroup('end_date'); ?>
+					<?php echo $this->form->getControlGroup('calid'); ?>
 				</fieldset>
 				<?php echo JLayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>

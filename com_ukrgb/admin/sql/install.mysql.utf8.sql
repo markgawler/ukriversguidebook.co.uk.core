@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS `#__ukrgb_events` (
   `catid` int(11) NOT NULL DEFAULT '0',
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(255) NOT NULL DEFAULT '' ,
+  `calid` int(11) NOT NULL DEFAULT 0,
   `description` text NOT NULL ,
   `summary` text NOT NULL,
   `location` varchar(255) NOT NULL DEFAULT '' ,

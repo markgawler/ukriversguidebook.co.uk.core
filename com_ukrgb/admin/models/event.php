@@ -1,7 +1,6 @@
 <?php
 /**
- * @version		$Id: event.php 284 2011-11-11 16:17:14Z dextercowley $
- * @copyright	Copyright (C) 2011 Mark Dexter and Louis Landry. All rights reserved.
+ * @copyright	Copyright (C) 2016 Mark Gawler. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
