@@ -85,7 +85,7 @@ SCRIPT;
 	}
 
 	/**
-	 * Plugin to remove sh040 canonical link, leaving only the phpBB link.
+	 * Plugin to remove sh0404 canonical link, leaving only the phpBB link.
 	 */
 	public function onAfterRender()
 	{

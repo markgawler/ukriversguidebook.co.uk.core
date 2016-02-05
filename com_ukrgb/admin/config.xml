@@ -61,8 +61,13 @@
 				>
 					<option value="">JOPTION_ALL_CATEGORIES</option>
 		</field>
-	
 	</fieldset>
+	
+	<fieldset addfieldpath="/administrator/components/com_ukrgb/fields" 
+		name="event" label="COM_UKRGB_EVENT_MGR" description="COM_UKRGB_EVENT_OPT_DESC">
+		<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
+	</fieldset>
+	
 
 	<fieldset name="advanced" label="COM_UKRGB_ADV"
 		description="COM_UKRGB_ADV_DESCRIPTION">

@@ -35,7 +35,7 @@ class JFormFieldCalendarList extends JFormFieldList
 
 		$options = array();
 		$options[] = array("value" => 0, "text" => "");
-					foreach ($cals as $r){
+		foreach ($cals as $r){
 			$options[] = array("value" => $r[0], "text" => $r[1]);
 		}
 		return $options;

@@ -32,7 +32,7 @@
 			
 			<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
 					
-			<field name="selected_forums" type="forumlist" default=""
+			<field name="selected_forums" type="forumlist"  default=""
                        label="Select Forums"
                        description="Select forums to display the PayPlal donate button."  />	
 				

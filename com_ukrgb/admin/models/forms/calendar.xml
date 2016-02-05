@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset
-	addfieldpath="/administrator/components/com_categories/models/fields"
-	>
+	<fieldset>
 		<field name="id" type="text" default="0" label="JGLOBAL_FIELD_ID_LABEL"
 			readonly="true" class="readonly" description="JGLOBAL_FIELD_ID_DESC" />
 
@@ -13,10 +11,16 @@
 		<field name="alias" type="text" class="inputbox" size="40"
 			label="JFIELD_ALIAS_LABEL" description="COM_UKRGB_FIELD_ALIAS_DESC" />
 
-		<field name="catid" type="category" extension="COM_UKRGB"
+		<field addfieldpath="/administrator/components/com_categories/models/fields"
+			name="catid" type="category" extension="COM_UKRGB"
 			label="JCATEGORY" description="COM_UKRGB_FIELD_CATEGORY_DESC"
 			class="inputbonx">
 		</field>
+
+		<field addfieldpath="/administrator/components/com_ukrgb/fields" 
+			name="forumid" type="forumlist" default=""
+			label="COM_UKRGB_FORUM_LIST_LAB"
+            description="COM_UKRGB_FORUM_LIST_DESC"  />	
 
 		<field name="description" label="Description"
 			description="COM_UKRGB_CALENDAR_DESCRIPTION"
