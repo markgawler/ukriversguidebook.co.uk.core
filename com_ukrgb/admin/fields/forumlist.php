@@ -38,25 +38,10 @@ class JFormFieldForumlist extends JFormField
 	protected function getInput()
 	{
 		try {
-			//Query current selected Module Id
-			$id = JFactory::getApplication()->input->getInt('id', 0);
-			$cid = JFactory::getApplication()->input->get('cid', array($id), 'array');
-			JArrayHelper::toInteger($cid, array(0));
-			//find out which JFusion plugin is used in the activity module
-			$db = JFactory::getDBO();
-
-			$query = $db->getQuery(true)
-				->select('params')
-				->from('#__extensions')
-				->where('element = ' . $db->quote('ukrgb'))
-				->where('folder = ' . $db->quote('system'))
-				->where('client_id = ' . $db->quote($cid[0]));
-
-			$db->setQuery($query);
-			$params = $db->loadResult();
-			$parametersInstance = new JRegistry($params);
-			//load custom plugin parameter
+			$app = JFactory::getApplication();
+			$parametersInstance = JComponentHelper::getParams('com_ukrgb');
 			$jPluginParamRaw = unserialize(base64_decode($parametersInstance->get('JFusionPluginParam')));
+			
 			$jname = $jPluginParamRaw['jfusionplugin'];
 
 			$control_name = $this->formControl . '[' . $this->group . ']';
