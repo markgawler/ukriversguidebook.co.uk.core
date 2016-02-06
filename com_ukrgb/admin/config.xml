@@ -64,7 +64,7 @@
 	</fieldset>
 	
 	<fieldset addfieldpath="/administrator/components/com_ukrgb/fields" 
-		name="event" label="COM_UKRGB_EVENT_MGR" description="COM_UKRGB_EVENT_OPT_DESC">
+		name="event" label="COM_UKRGB_JF_LAB" description="COM_UKRGB_JF_DESC">
 		<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
 	</fieldset>
 	

@@ -41,6 +41,7 @@ class JFormFieldForumlist extends JFormField
 			//Query current selected Module Id
 			$id = JFactory::getApplication()->input->getInt('id', 0);
 			$cid = JFactory::getApplication()->input->get('cid', array($id), 'array');
+				
 			JArrayHelper::toInteger($cid, array(0));
 			//find out which JFusion plugin is used in the activity module
 			$db = JFactory::getDBO();
@@ -56,10 +57,13 @@ class JFormFieldForumlist extends JFormField
 			$params = $db->loadResult();
 			$parametersInstance = new JRegistry($params);
 			//load custom plugin parameter
-			$jPluginParamRaw = unserialize(base64_decode($parametersInstance->get('JFusionPluginParam')));
+			
+			$parametersComponentInstance = JComponentHelper::getParams('com_ukrgb');	
+			$jPluginParamRaw = unserialize(base64_decode($parametersComponentInstance->get('JFusionPluginParam')));
 			$jname = $jPluginParamRaw['jfusionplugin'];
-
+			
 			$control_name = $this->formControl . '[' . $this->group . ']';
+			
 			if (!empty($jname)) {
 				$JFusionPlugin = JFusionFactory::getForum($jname);
 				if ($JFusionPlugin->isConfigured()) {

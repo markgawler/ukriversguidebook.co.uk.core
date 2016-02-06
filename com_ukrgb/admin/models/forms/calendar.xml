@@ -18,7 +18,7 @@
 		</field>
 
 		<field addfieldpath="/administrator/components/com_ukrgb/fields" 
-			name="forumid" type="forumlist" default=""
+			name="forumid" type="forumlistcalendar" default=""
 			label="COM_UKRGB_FORUM_LIST_LAB"
             description="COM_UKRGB_FORUM_LIST_DESC"  />	
 
