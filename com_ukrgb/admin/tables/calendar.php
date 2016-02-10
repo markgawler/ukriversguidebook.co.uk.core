@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright	Copyright (C) 2011 Mark Gawler. All rights reserved.
+ * @copyright	Copyright (C) 2016 Mark Gawler. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 

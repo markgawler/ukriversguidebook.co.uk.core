@@ -82,6 +82,10 @@ CREATE TABLE IF NOT EXISTS `#__ukrgb_events` (
   `publish_up` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `publish_down` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `version` int(10) NOT NULL DEFAULT '1',
+  `forumid` int(11) NOT NULL DEFAULT '0',
+  `threadid` int(11) NOT NULL DEFAULT '0',
+  `postid` int(11) NOT NULL DEFAULT '0',
+
   PRIMARY KEY (`id`),
   KEY `idx_access` (`access`),
   KEY `idx_checkout` (`checked_out`),

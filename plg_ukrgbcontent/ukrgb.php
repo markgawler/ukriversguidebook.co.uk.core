@@ -17,10 +17,25 @@ class plgContentUkrgb extends JPlugin {
 	
 	protected $autoloadLanguage = true;
 	
+	
+	/**
+	 * Constructor
+	 *
+	 * @param object &$subject The object to observe
+	 * @param array|object  $params   An array or object that holds the plugin configuration
+	 *
+	 * @since 1.5
+	 */
+//	public function __construct(&$subject, $params)
+//	{
+//		parent::__construct($subject, $params);
+//	}
+	
 	public function onContentPrepareForm($form, $data)
 	{
-		$this->init();
-		$this->logger->log("onContentPrepareForm ");
+		// River guides - additional fields for article
+		//$this->init();
+		//$this->logger->log("onContentPrepareForm ");
 		if (!($form instanceof JForm))
 		{
 			$this->_subject->setError('JERROR_NOT_A_FORM');
@@ -53,8 +68,9 @@ class plgContentUkrgb extends JPlugin {
 	
 	public function onContentPrepareData($context, $data)
 	{
-		$this->init();
-		$this->logger->log("onContentPrepareData " . $context);
+		// River Guides - load additional fields
+		//$this->init();
+		//$this->logger->log("onContentPrepareData " . $context);
 		if ($context == 'com_content.article' && isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
 			if (isset($data->id))
@@ -83,19 +99,23 @@ class plgContentUkrgb extends JPlugin {
 	 
 	public function onContentBeforeSave($context, $article, $isNew) 
 	{
-		$this->init();
-		$this->logger->log("onContentBeforeSave " . $context);
+		//$this->init();
+		//$this->logger->log("onContentBeforeSave " . $context);
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
 
 			$attribs = json_decode($article->attribs);
-			//$this->logger->log(" - Grade: " . $attribs->grade);
 			if ($attribs->grade == "-1"){
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GRADE_MISSING") , 'error');
 
 				return false;
 			}
+		}elseif ($context = 'com_ukrgb.event'){
+			// Event Bot
+			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
+			$this->helper = new UkrgbEventBotHelper($article, $isNew);
+			return $this->helper->validate();
 		}
 		return true;
 	}
@@ -109,6 +129,7 @@ class plgContentUkrgb extends JPlugin {
 		
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
+			//River Guides
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
 			$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());	
 			
@@ -125,6 +146,18 @@ class plgContentUkrgb extends JPlugin {
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GUIDE_SAVE_FAIL"). ':' .$article->title  , 'warning');
 			}	
+		} elseif ($context = 'com_ukrgb.event'){
+			// Event Bot
+			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
+			$this->helper = new UkrgbEventBotHelper($article, $isNew);
+			
+			// If new event or thread info invalid create a new thread
+			if ($isNew || $article->forumid == 0 || $article->threadid == 0 || $article->postid == 0 ) {
+				$this->helper->createThread();
+			} else {
+				$this->helper->updateThread();
+			}
+			
 		}
 		return true;
 	}
@@ -137,7 +170,7 @@ class plgContentUkrgb extends JPlugin {
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
 			$table = JTable::getInstance('Riverguide', 'UkrgbTable', array());
 			$table->delete($article->id);
-		}
+		} 
 	}
 	
 	private function init()

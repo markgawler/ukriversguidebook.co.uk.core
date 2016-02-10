@@ -207,7 +207,7 @@ class UkrgbModelEvent extends JModelAdmin
 	 * @return  boolean  True on success.
 	 */
 	public function save($data)
-	{
+	{		
 		$app = JFactory::getApplication();
 	
 		// Alter the title for save as copy
@@ -218,6 +218,7 @@ class UkrgbModelEvent extends JModelAdmin
 			$data['alias']	= $alias;
 			$data['state']	= 0;
 		}
+
 		return parent::save($data);
 	}
 	

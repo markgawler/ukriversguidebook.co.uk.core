@@ -15,6 +15,7 @@
 	<files>
 		<folder>language</folder>
 		<folder>fields</folder>
+		<folder>helper</folder>
 		<filename plugin="ukrgb">ukrgb.php</filename>
 		<filename>index.html</filename>
 	</files>
@@ -25,13 +26,4 @@
 		</language>
 	</languages>
 
-	<config>
-		<fields name="params">
-			<fieldset name="basic">
-				<field name="ratingclass_sfx" type="text"
-					label="PLG_CONTENT_RIVERGUIDE_ITEM_FIELD_RATING_CLASS_LABEL"
-					description="PLG_CONTENT_RIVERGUIDE_ITEM_FIELD_RATING_CLASS_DESC" />
-			</fieldset>
-		</fields>
-	</config>
 </extension>
