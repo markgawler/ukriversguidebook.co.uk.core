@@ -26,4 +26,13 @@ class UkrgbController extends JControllerLegacy
 		$input->set('view','donation');
 		parent::display();
 	}
+	
+	function event()
+	{
+		//echo "event";
+		//die();
+		$input = JFactory::getApplication()->input;
+		$input->set('view','event');
+		parent::display();
+	}
 }
