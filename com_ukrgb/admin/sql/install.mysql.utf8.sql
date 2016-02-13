@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `#__ukrgb_calendar` (
   `alias` varchar(255) NOT NULL DEFAULT '' ,
   `forumid` varcharint(10) NOT NULL DEFAULT 0 ,
   `description` text NOT NULL ,
+  `post_template` text NOT NULL ,
   `hits` int(11) NOT NULL DEFAULT '0',
   `state` tinyint(1) NOT NULL DEFAULT '0',
   `checked_out` int(11) NOT NULL DEFAULT '0',

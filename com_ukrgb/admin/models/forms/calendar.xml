@@ -26,6 +26,11 @@
 			description="COM_UKRGB_CALENDAR_DESCRIPTION"
 			type="textarea" rows="3" cols="100" required="false" filter="string"
 			class="input-block-level"/>
+			
+		<field name="post_template" label="COM_UKRGB_CALENDAR_POST_TPL_LAB" 
+		description="COM_UKRGB_CALENDAR_POST_TPL_DEC"
+		type="textarea" rows="10" cols="100" required="false" filter="string" class="input-block-level"/>
+		
 
 		<field
 			name="state"

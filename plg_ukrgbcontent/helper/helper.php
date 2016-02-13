@@ -30,8 +30,10 @@ class UkrgbEventBotHelper {
 		$componentPrams = JComponentHelper::getParams('com_ukrgb');
 		$jPluginParamRaw = unserialize(base64_decode($componentPrams->get('JFusionPluginParam')));
 		$this->jname = $jPluginParamRaw['jfusionplugin'];
+		//make sure the forum and thread still exists
+		$this->forum = JFusionFactory::getForum($this->jname);
+		
 	}
-	
 	
 	public function validate()
 	{
@@ -40,7 +42,6 @@ class UkrgbEventBotHelper {
 		
 		return true;
 	}
-	
 	
 	private function getForumIdfromEventID($id)
 	{
@@ -62,22 +63,24 @@ class UkrgbEventBotHelper {
 		return $fid;
 	}
 	
+	public function isValidThread()
+	{	
+		return empty($this->forum->getThread($this->event->threadid));
+	}
 	
 	public function createThread()
 	{
 		$this->logger->log("Create Thread called - event id: ". $this->event->id);
 		$params = $this->setParams();
+		$forumId = $this->getForumIdfromEventID($this->event->calid);
 		
 		// Compile the event post text.
-		$this->event->introtext = $this->createPostText();
-		
-		//make sure the forum and thread still exists
-		$Forum = JFusionFactory::getForum($this->jname);
+		$this->event->introtext = $this->createPostText($this->event->calid);
 		
 		$status = array('error' => array(), 'debug' => array());
 		$status['threadinfo'] = new stdClass();
 					
-		$Forum->createThread($params, $this->event, $this->getForumIdfromEventID($this->event->calid), $status);
+		$this->forum->createThread($params, $this->event, $forumId, $status);
 		
 		if (!empty($status['error'])) {
 			throw new Exception('com_ukrgb EventBot error: ' . $status['error'] .', ' .$this->jname. ' ' . JText::_('FORUM') . ' ' . JText::_('UPDATE'));
@@ -100,25 +103,14 @@ class UkrgbEventBotHelper {
 		$threadinfo->forumid = $this->event->forumid;
 		
 		// Compile the event post text.
-		$this->event->introtext = $this->createPostText();
-		
-		//make sure the forum and thread still exists
-		$Forum = JFusionFactory::getForum($this->jname);
+		$this->event->introtext = $this->createPostText($this->event->calid);
 		
 		$status = array('error' => array(), 'debug' => array());
 		$status['threadinfo'] = new stdClass();
 			
-		$Forum->updateThread($params, $threadinfo, $this->event, $status);
-		
+		$this->forum->updateThread($params, $threadinfo, $this->event, $status);
 		if (!empty($status['error'])) {
-			
-			//throw new Exception('com_ukrgb EventBot error: ' . $status['error'] .', ' .$this->jname. ' ' . JText::_('FORUM') . ' ' . JText::_('UPDATE'));
-			var_dump($status);
-			die();
-		} else {
-			$threadinfo = $status['threadinfo'];
-			$this->logger->log("	updated: " . $threadinfo->postid);
-			$this->setThreadInfo($threadinfo);
+			throw new Exception('com_ukrgb EventBot error: ' . $status['error'] .', ' .$this->jname. ' ' . JText::_('FORUM') . ' ' . JText::_('UPDATE'));
 		}
 		return true;
 	}
@@ -131,8 +123,37 @@ class UkrgbEventBotHelper {
 		return new JRegistry($dbparams);
 	}
 	
-	private function createPostText(){
-		return $this->event->summary;
+	private function createPostText($cal){
+		$db = JFactory::getDBO();
+		
+		// Get the forum id
+		$query = $db->getQuery(true)
+		->select(array('post_template'))
+		->from('#__ukrgb_calendar')
+		->where('state = 1')
+		->where('id =' . $db->quote($cal));
+		
+		$db->setQuery($query);
+		$template = $db->loadResult();
+		
+		$matches = array();
+		$count = preg_match_all('#\{\w*\}#', $template, $matches);
+		foreach ($matches[0] as $match){
+			$propName = trim($match,'{}');
+			if (property_exists($this->event, $propName)){
+				//if ($propName == "start_date"){
+					//$template = str_replace($match, $this->event->$propName, $template);
+					//$this->logger->log(" property value: " . $this->event->$propName);
+					//var_dump($this->event->$propName);
+					//die();
+				//} else {
+					$template = str_replace($match, $this->event->$propName, $template);
+				//}
+			} else {
+				$this->logger->log("template property: " . $match . "  Invalid");
+			}
+		}
+		return $template;
 	}
 	
 	private function setThreadInfo($info)

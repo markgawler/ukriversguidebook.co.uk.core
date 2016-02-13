@@ -99,8 +99,8 @@ class plgContentUkrgb extends JPlugin {
 	 
 	public function onContentBeforeSave($context, $article, $isNew) 
 	{
-		//$this->init();
-		//$this->logger->log("onContentBeforeSave " . $context);
+		$this->init();
+		$this->logger->log("onContentBeforeSave " . $context);
 		if (($context == 'com_content.article' || $context == 'com_content.form') && $this->is_riverguide_category($article->catid))
 		{
 
@@ -111,7 +111,7 @@ class plgContentUkrgb extends JPlugin {
 
 				return false;
 			}
-		}elseif ($context = 'com_ukrgb.event'){
+		} elseif ($context == 'com_ukrgb.event'){
 			// Event Bot
 			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
 			$this->helper = new UkrgbEventBotHelper($article, $isNew);
@@ -146,7 +146,7 @@ class plgContentUkrgb extends JPlugin {
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GUIDE_SAVE_FAIL"). ':' .$article->title  , 'warning');
 			}	
-		} elseif ($context = 'com_ukrgb.event'){
+		} elseif ($context == 'com_ukrgb.event'){
 			// Event Bot
 			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
 			$this->helper = new UkrgbEventBotHelper($article, $isNew);
@@ -155,9 +155,14 @@ class plgContentUkrgb extends JPlugin {
 			if ($isNew || $article->forumid == 0 || $article->threadid == 0 || $article->postid == 0 ) {
 				$this->helper->createThread();
 			} else {
-				$this->helper->updateThread();
+				if ($this->helper->isValidThread())
+				{
+					$this->logger->log("Update thread, original thread has gone create new.");
+					$this->helper->createThread();
+				} else {
+					$this->helper->updateThread();
+				}
 			}
-			
 		}
 		return true;
 	}

@@ -39,6 +39,7 @@ JHtml::_('formbehavior.chosen', 'select');
 				<div class="form-vertical ">
 					<?php echo $this->form->getControlGroup('forumid'); ?>
 					<?php echo $this->form->getControlGroup('description'); ?>
+					<?php echo $this->form->getControlGroup('post_template'); ?>
 				</div>
 			</div>
 			<div class="span3">
