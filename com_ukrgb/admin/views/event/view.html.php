@@ -18,7 +18,7 @@ class UkrgbViewEvent extends JViewLegacy
 	protected $form;
 	protected $item;
 	protected $state;
-
+	
 	/**
 	 * Display the view
 	 */

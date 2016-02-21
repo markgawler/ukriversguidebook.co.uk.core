@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `#__ukrgb_calendar` (
   `catid` int(11) NOT NULL DEFAULT '0',
   `title` varchar(250) NOT NULL DEFAULT '',
   `alias` varchar(255) NOT NULL DEFAULT '' ,
-  `forumid` varcharint(10) NOT NULL DEFAULT 0 ,
+  `forumid` int(10) NOT NULL DEFAULT 0 ,
   `description` text NOT NULL ,
   `post_template` text NOT NULL ,
   `hits` int(11) NOT NULL DEFAULT '0',

@@ -36,24 +36,24 @@
 		<filename>index.html</filename>
 		<filename>ukrgb.php</filename>
 		<filename>controller.php</filename>
+		<filename>router.php</filename>
 		<folder>views</folder>
 		<folder>models</folder>
 		<folder>helpers</folder>
-		
+		<folder>language</folder>
 	</files>
 	
 	
 	<administration>
 		<!-- Administration Menu Section -->
-		<menu>UK Rivers Guidebook Core</menu>
+		<menu>COM_UKRGB_CORE</menu>
 			<submenu>
+				<menu link="option=com_ukrgb&amp;view=eventmanager" view="eventmanager" img="class:generic"
+				alt="Ukrgb/Eventmanager">COM_UKRGB_EVENT_MGR</menu>
 				<menu link="option=com_ukrgb&amp;view=donation" view="donation" img="class:generic"
-				alt="Ukrgb/Donation">Donation</menu>
+				alt="Ukrgb/Donation">COM_UKRGB_DONATION_MGR</menu>
 				<menu link="option=com_ukrgb&amp;view=tagtool" view="tagtool" img="class:generic"
 				alt="Ukrgb/Tagtool">River Grading Tool</menu>
-				<menu link="option=com_ukrgb&amp;view=eventmanager" view="eventmanager" img="class:generic"
-				alt="Ukrgb/Eventmanager">Event Manager</menu>
-				
 			</submenu>
 		
 		<files folder="admin">

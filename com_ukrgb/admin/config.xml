@@ -63,13 +63,106 @@
 		</field>
 	</fieldset>
 	
-	<fieldset addfieldpath="/administrator/components/com_ukrgb/fields" 
-		name="event" label="COM_UKRGB_JF_LAB" description="COM_UKRGB_JF_DESC">
-		<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
-	</fieldset>
 	
+	
+	<!-- Add fields to the parameters object for the layout. -->
+	<!-- Basic options. -->
+	<fieldset name="basic"
+			label="COM_UKRGB_ATTRIBS_EVENT_SETTINGS_LABEL">
+			
+		<field
+			name="show_title"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_TITLE_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_TITLE_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+			
+		<field
+			name="show_author"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_AUTHOR_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_AUTHOR_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+				
+		<field
+			name="show_create_date"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_CREATE_DATE_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_CREATE_DATE_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
 
-	<fieldset name="advanced" label="COM_UKRGB_ADV"
+		<field
+			name="show_modify_date"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_MODIFY_DATE_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_MODIFY_DATE_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="show_publish_date"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_PUBLISH_DATE_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_PUBLISH_DATE_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+			
+		<field
+			name="show_icons"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_ICONS_LABEL"
+			default="1"
+			description="JGLOBAL_SHOW_ICONS_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="show_print_icon"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_PRINT_ICON_LABEL"
+			default="0"
+			description="JGLOBAL_SHOW_PRINT_ICON_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+
+		<field
+			name="show_email_icon"
+			type="radio"
+			class="btn-group"
+			label="JGLOBAL_SHOW_EMAIL_ICON_LABEL"
+			default="0"
+			description="JGLOBAL_SHOW_EMAIL_ICON_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+	</fieldset>	
+		
+	
+	<fieldset addfieldpath="/administrator/components/com_ukrgb/fields" name="advanced" label="COM_UKRGB_ADV"
 		description="COM_UKRGB_ADV_DESCRIPTION">
 		
 		<field name="debug" type="radio" class="btn-group"  default="0" 
@@ -78,12 +171,14 @@
     		<option value="1">JYES</option>
     		<option value="0">JNO</option>
 		</field>
-	</fieldset>
-
-	
+		
+		<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
+	</fieldset>	
+		
 	<fieldset name="permissions" description="JCONFIG_PERMISSIONS_DESC"
 		label="JCONFIG_PERMISSIONS_LABEL">
 		<field name="rules" type="rules" component="com_ukrgb" filter="rules"
 			validate="rules" label="JCONFIG_PERMISSIONS_LABEL" section="component" />
-	</fieldset>
+	</fieldset>	
+	
 </config>
