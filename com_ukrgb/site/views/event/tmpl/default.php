@@ -75,29 +75,31 @@ JHtml::_('behavior.caption');
 
 	<?php if ($params->get('access-view')):?>	
 		<div>
-			<h4><?php echo $this->event->summary; ?></h4>
+			<h4 itemprop="description"><?php echo $this->event->summary; ?></h4>
 		</div>
 		
-		<div>
-			<span class="icon-location"></span>
-			<meta itemprop="location" itemscope itemtype="http://schema.org/Place">
-			<strong><?php echo JText::_('COM_UKRGB_EVENT_LOCATION') . ': '; ?></strong> <?php echo $this->event->location; ?>
-		</div>
-		
-		<div>
-			<span class="icon-calendar"></span>
-			<meta itemprop="startDate" datetime="<?php echo JHtml::_('date', $this->event->start_date, 'c'); ?>">
-			<strong><?php echo JText::_('COM_UKRGB_EVENT_DATE') . ': ' ?></strong>
- 			<?php echo JHtml::_('date', $this->event->start_date, JText::_('DATE_FORMAT_LC3')); ?>
-		</div>
-		<?php if ($this->event->end_date >  $this->event->start_date):?>
-			<div>
+		<dl>
+			<dt><?php echo JText::_('COM_UKRGB_EVENT_DETAILS') ?>
+			<dd>
+				<span class="icon-location"></span>
+				<meta itemprop="location" itemscope itemtype="http://schema.org/Place">
+				<strong><?php echo JText::_('COM_UKRGB_EVENT_LOCATION') . ': '; ?></strong> <?php echo $this->event->location; ?>
+			</dd>
+			<dd>
 				<span class="icon-calendar"></span>
-				<meta itemprop="endDate" datetime="<?php echo JHtml::_('date', $this->event->end_date, 'c'); ?>">
-				<strong><?php echo JText::_('COM_UKRGB_EVENT_END_DATE') . ': ' ?></strong>
-	 			<?php echo JHtml::_('date', $this->event->end_date, JText::_('DATE_FORMAT_LC3')); ?>
-			</div>
-		<?php endif?>
+				<meta itemprop="startDate" datetime="<?php echo JHtml::_('date', $this->event->start_date, 'c'); ?>">
+				<strong><?php echo JText::_('COM_UKRGB_EVENT_DATE') . ': ' ?></strong>
+	 			<?php echo JHtml::_('date', $this->event->start_date, JText::_('DATE_FORMAT_LC3')); ?>
+			</dd>
+			<?php if ($this->event->end_date >  $this->event->start_date):?>
+				<dd>
+					<span class="icon-calendar"></span>
+					<meta itemprop="endDate" datetime="<?php echo JHtml::_('date', $this->event->end_date, 'c'); ?>">
+					<strong><?php echo JText::_('COM_UKRGB_EVENT_END_DATE') . ': ' ?></strong>
+		 			<?php echo JHtml::_('date', $this->event->end_date, JText::_('DATE_FORMAT_LC3')); ?>
+				</dd>
+			<?php endif?>
+		</dl>
 		<div>
 		<?php echo $this->event->description; ?>
 		</div>
