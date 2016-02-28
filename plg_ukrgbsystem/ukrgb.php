@@ -65,7 +65,7 @@ class plgSystemUkrgb extends JPlugin {
 								$paypal_url = "https://www.paypal.com/cgi-bin/webscr";
 								$hosted_button_id = $config->get('hosted_button_id');
 							}
-							$item_name = $forum.':UK Rivers Controbution';
+							$item_name = $forum.':UK Rivers Contribution';
 							$script = <<<SCRIPT
 jQuery(document).ready(function(){jQuery("#paypal-box").append('<form action="{$paypal_url}" method="post">\
 <input type="hidden" name="cmd" value="_s-xclick">\
