@@ -143,7 +143,7 @@ class UkrgbRouter extends JComponentRouterBase
 				$mCatid = 0;
 			}
 
-			$categories = JCategories::getInstance('com_ukrgb');
+			$categories = JCategories::getInstance('Ukrgb');
 			$category = $categories->get($catid);
 
 			if (!$category)

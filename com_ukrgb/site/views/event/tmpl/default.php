@@ -82,19 +82,21 @@ JHtml::_('behavior.caption');
 			<dt><?php echo JText::_('COM_UKRGB_EVENT_DETAILS') ?>
 			<dd>
 				<span class="icon-location"></span>
-				<meta itemprop="location" itemscope itemtype="http://schema.org/Place">
-				<strong><?php echo JText::_('COM_UKRGB_EVENT_LOCATION') . ': '; ?></strong> <?php echo $this->event->location; ?>
+				<strong><?php echo JText::_('COM_UKRGB_EVENT_LOCATION') . ': '; ?></strong>
+				<span itemprop="location" itemscope itemtype="http://schema.org/Place">
+					 <?php echo $this->event->location; ?>
+				</span>
 			</dd>
 			<dd>
-				<span class="icon-calendar"></span>
 				<meta itemprop="startDate" datetime="<?php echo JHtml::_('date', $this->event->start_date, 'c'); ?>">
+				<span class="icon-calendar"></span>
 				<strong><?php echo JText::_('COM_UKRGB_EVENT_DATE') . ': ' ?></strong>
 	 			<?php echo JHtml::_('date', $this->event->start_date, JText::_('DATE_FORMAT_LC3')); ?>
 			</dd>
 			<?php if ($this->event->end_date >  $this->event->start_date):?>
 				<dd>
-					<span class="icon-calendar"></span>
 					<meta itemprop="endDate" datetime="<?php echo JHtml::_('date', $this->event->end_date, 'c'); ?>">
+					<span class="icon-calendar"></span>
 					<strong><?php echo JText::_('COM_UKRGB_EVENT_END_DATE') . ': ' ?></strong>
 		 			<?php echo JHtml::_('date', $this->event->end_date, JText::_('DATE_FORMAT_LC3')); ?>
 				</dd>

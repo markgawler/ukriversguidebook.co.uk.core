@@ -3,14 +3,16 @@
 /**
  * @package		UKRGB
  * @subpackage	Component
- * @copyright	Copyright (C) 2015. All rights reserved.
+ * @copyright	Copyright (C) 2015 -2016. All rights reserved.
  * @author		Mark Gawler
  * @link		http://ukriversguidebook.co.uk
  * @license		License GNU General Public License version 2 or later
  */
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access');
+defined('_JEXEC') or die;
+
+require_once JPATH_COMPONENT . '/helpers/route.php';
 
 // import joomla controller library
 jimport('joomla.application.component.controller');

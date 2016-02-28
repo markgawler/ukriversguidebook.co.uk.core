@@ -8,8 +8,8 @@
 	<authorUrl>http://www.ukriversguidebook.co.uk</authorUrl>
 	<copyright>Copyright Info</copyright>
 	<license>License Info</license>
-	<version>0.0.6</version>
-	<description>UKRGB component, paypal donations</description>
+	<version>0.0.15</version>
+	<description>UKRGB component River Guides, PayPal donations and Events</description>
 
 	<install> <!-- Runs on install -->
 		<sql>
@@ -41,6 +41,8 @@
 		<folder>models</folder>
 		<folder>helpers</folder>
 		<folder>language</folder>
+		<folder>controllers</folder>
+		
 	</files>
 	
 	

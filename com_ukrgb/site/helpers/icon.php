@@ -132,16 +132,16 @@ abstract class JHtmlIcon
 	}
 	
 	/**
-	 * Method to generate a link to print an article
+	 * Method to generate a link to print an event
 	 *
-	 * @param   object    $article  Not used, @deprecated for 4.0
+	 * @param   object    $event  Not used, @deprecated for 4.0
 	 * @param   Registry  $params   The item parameters
 	 * @param   array     $attribs  Not used, @deprecated for 4.0
 	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
 	 *
 	 * @return  string  The HTML markup for the popup link
 	 */
-	public static function print_screen($article, $params, $attribs = array(), $legacy = false)
+	public static function print_screen($event, $params, $attribs = array(), $legacy = false)
 	{
 		// Checks template image directory for image, if none found default are loaded
 		if ($params->get('show_icons'))
@@ -162,4 +162,22 @@ abstract class JHtmlIcon
 	
 		return '<a href="#" onclick="window.print();return false;">' . $text . '</a>';
 	}
+	
+	/**
+	 * Display an edit icon for the event.
+	 *
+	 * This icon will not display in a popup window, nor if the event is trashed.
+	 * Edit access checks must be performed in the calling code.
+	 *
+	 * @param   object    $event  The event information
+	 * @param   Registry  $params   The item parameters
+	 * @param   array     $attribs  Optional attributes for the link
+	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
+	 *
+	 * @return  string	The HTML for the event edit icon.
+	 *
+	 * @since   1.6
+	 */
+	
+	
 }
