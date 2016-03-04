@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field
+			id="id"
+			name="id"
+			type="hidden"
+			class="inputbox"
+			label="COM_CONTENT_ID_LABEL"
+			size="10"
+			default="0"
+			readonly="true" />
+
+
+		<field
+			id="title"
+			name="title"
+			type="text"
+			label="JGLOBAL_TITLE"
+			description="JFIELD_TITLE_DESC"
+			class="inputbox"
+			size="30"
+			required="true" />
+
+		<field
+			id="alias"
+			name="alias"
+			type="text"
+			label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			hint="JFIELD_ALIAS_PLACEHOLDER"
+			class="inputbox"
+			size="45" />
+		
+		<field name="summary" 
+			label="COM_UKRGB_SUMMARY"
+			description="COM_UKRGB_EVENT_SUMMARY_DESC"
+			type="textarea" rows="3" cols="100" required="true" filter="string"
+			class="input-block-level"/>
+			
+		<field name="description" type="editor" buttons="true"
+			class="inputbox" 
+			filter="JComponentHelper::filterText"
+			label="JGLOBAL_DESCRIPTION" description="COM_UKRGB_FIELD_DESCRIPTION_DESC" />
+
+		<field
+			id="created"
+			name="created"
+			type="calendar"
+			filter="unset" />
+
+		<field
+			id="created_by"
+			name="created_by"
+			type="text"
+			filter="unset" />
+
+		<field
+			id="created_by_alias"
+			name="created_by_alias"
+			type="text"
+			label="JGLOBAL_FIELD_CREATED_BY_ALIAS_LABEL"
+			description="JGLOBAL_FIELD_CREATED_BY_ALIAS_DESC"
+			class="inputbox"
+			size="20" />
+	</fieldset>
+</form>

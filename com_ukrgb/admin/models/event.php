@@ -72,9 +72,19 @@ class UkrgbModelEvent extends JModelAdmin
 	 * @param	array	Configuration array for model. Optional.
 	 * @return	JTable	A database object
 	 */
-	public function getTable($type = 'event', $prefix = 'UkrgbTable', $config = array())
+	public function getTable($type = 'Event', $prefix = 'UkrgbTable', $config = array())
 	{
-		return JTable::getInstance($type, $prefix, $config);
+		$t = JTable::getInstance($type, $prefix, $config);
+		echo('<br>');
+		echo('<br>');
+		
+		var_dump($t);
+		echo('<br>');
+		var_dump($type);echo('<br>');
+		var_dump($prefix);echo('<br>');
+		var_dump($config);echo('<br>');
+		die('get Table admin');
+		return $t;
 	}
 
 	/**
@@ -96,17 +106,41 @@ class UkrgbModelEvent extends JModelAdmin
 			return false;
 		}
 
+		$jinput = JFactory::getApplication()->input;
+		
+		// The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		if ($jinput->get('a_id'))
+		{
+			$id = $jinput->get('a_id', 0);
+		}
+		// The back end uses id so we use that the rest of the time and set it to 0 by default.
+		else
+		{
+			$id = $jinput->get('id', 0);
+		}
+		
+		
 		// Determine correct permissions to check.
 		if ($this->getState('event.id')) {
+			$id = $this->getState('event.id');
+				
 			// Existing record. Can only edit in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.edit');
+
+			// Existing record. Can only edit own articles in selected categories.
+			$form->setFieldAttribute('catid', 'action', 'core.edit.own');
 		} else {
 			// New record. Can only create in selected categories.
 			$form->setFieldAttribute('catid', 'action', 'core.create');
 		}
 
-		// Modify the form based on access controls.
-		if (!$this->canEditState((object) $data)) {
+		$user = JFactory::getUser();
+		
+		// Check for existing article.
+		// Modify the form based on Edit State access controls.
+		if ($id != 0 && (!$user->authorise('core.edit.state', 'com_ukrgb.event.' . (int) $id))
+				|| ($id == 0 && !$user->authorise('core.edit.state', 'com_ukrgb')))
+		{
 			// Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('state', 'disabled', 'true');
@@ -133,7 +167,7 @@ class UkrgbModelEvent extends JModelAdmin
 	{
 		// Check the session for previously entered form data.
 		$data = JFactory::getApplication()->getUserState('com_ukrgb.edit.event.data', array());
-		
+
 		if (empty($data)) {
 				
 			$data = $this->getItem();
@@ -147,7 +181,8 @@ class UkrgbModelEvent extends JModelAdmin
 		}
 
 		$this->preprocessData('com_ukrgb.event', $data);
-
+		//var_dump($data);
+		//die('load form data');
 		return $data;
 	}
 

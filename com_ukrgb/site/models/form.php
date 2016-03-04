@@ -15,6 +15,7 @@ use Joomla\Registry\Registry;
 
 // Base this model on the backend version.
 require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
+require_once JPATH_COMPONENT .'/helpers/log.php';
 
 /**
  * Ukrgb Component event Model
@@ -22,8 +23,22 @@ require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
  */
 class UkrgbModelForm extends UkrgbModelEvent
 {
-	
+	private $logger ;
+	public function __construct($config = array())
+	{
+		//die('UkrgbModelForm __construct');
+		$this->logger = new UkrgbLogger();
+		//$this->logger->log("UkrgbModelForm __construct");
+		return parent::__construct($config);
+	}
 
+	public function getTable($type = 'Event', $prefix = 'UkrgbTable', $config = array())
+	{
+		JTable::addIncludePath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/tables');
+		return JTable::getInstance($type, $prefix, $config);
+	}
+	
+	
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -57,7 +72,7 @@ class UkrgbModelForm extends UkrgbModelEvent
 	 *
 	 * @param   integer  $itemId  The id of the event.
 	 *
-	 * @return  mixed  item data object on success, false on failure.
+	 * @return  mixed  event data object on success, false on failure.
 	 */
 	public function getItem($itemId = null)
 	{
@@ -82,7 +97,7 @@ class UkrgbModelForm extends UkrgbModelEvent
 
 		// Convert attrib field to Registry.
 		$value->params = new Registry;
-		$value->params->loadString($value->attribs);
+		//$value->params->loadString($value->attribs);
 
 		// Compute selected asset permissions.
 		$user   = JFactory::getUser();
@@ -113,7 +128,7 @@ class UkrgbModelForm extends UkrgbModelEvent
 		}
 		else
 		{
-			// New item.
+			// New event.
 			$catId = (int) $this->getState('event.catid');
 
 			if ($catId)
@@ -127,7 +142,7 @@ class UkrgbModelForm extends UkrgbModelEvent
 			}
 		}
 
-		$value->eventtext = $value->introtext;
+		//$value->eventtext = $value->introtext;
 
 
 		return $value;
@@ -143,6 +158,20 @@ class UkrgbModelForm extends UkrgbModelEvent
 	public function getReturnPage()
 	{
 		return base64_encode($this->getState('return_page'));
+	}
+	
+	/**
+	 * Method to save the form data.
+	 *
+	 * @param   array  $data  The form data.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   3.2
+	 */
+	public function save($data)
+	{
+		return parent::save($data);
 	}
 
 }

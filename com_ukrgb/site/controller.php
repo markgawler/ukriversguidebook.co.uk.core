@@ -65,17 +65,14 @@ class UkrgbController extends JControllerLegacy
 		$layout = $this->input->get('layout', 'events');
 		$id     = $this->input->getInt('id');
 	
-
+		
 		// Check for edit form.
-		if ($view == 'event' && $layout == 'edit' && !$this->checkEditId('com_ukrgb.edit.event', $id))
+		if ($view == 'form' && !$this->checkEditId('com_ukrgb.edit.event', $id))
 		{
 			// Somehow the person just went to the form - we don't allow that.
-			$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
-			$this->setMessage($this->getError(), 'error');
-			$this->setRedirect(JRoute::_('index.php?option=com_ukrgb&view=events', false));
-	
-			return false;
+			return JError::raiseError(403, JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
 		}
+		
 	
 		return parent::display();
 	}

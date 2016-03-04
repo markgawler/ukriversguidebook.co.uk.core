@@ -34,8 +34,8 @@
 			last="90" step="15" default="30" label="COM_UKRGB_FIELD_DURATION_LABEL"
 			description="COM_UKRGB_FIELD_DURATION_DESC" />
 
-		<field name="summary" label="Summary"
-			description="A summary of the event to apear in the calendar. Do not include any HTML or BBCodes"
+		<field name="summary" label="COM_UKRGB_SUMMARY"
+			description="COM_UKRGB_EVENT_SUMMARY_DESC"
 			type="textarea" rows="3" cols="100" required="true" filter="string"
 			class="input-block-level"/>
 
