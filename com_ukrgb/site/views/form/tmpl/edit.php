@@ -9,79 +9,117 @@
 
 defined('_JEXEC') or die;
 
-// Include the component HTML helpers.
-JHtml::addIncludePath(JPATH_COMPONENT . '/helpers');
-
-JHtml::_('behavior.formvalidator');
+JHtml::_('behavior.tabstate');
 JHtml::_('behavior.keepalive');
+JHtml::_('behavior.calendar');
+JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen', 'select');
-
-$this->configFieldsets  = array('editorConfig');
-$this->hiddenFieldsets  = array('basic-limited');
-$this->ignore_fieldsets = array('jmetadata', 'item_associations');
+JHtml::_('behavior.modal', 'a.modal_jform_contenthistory');
 
 // Create shortcut to parameters.
 $params = $this->state->get('params');
 
-$app = JFactory::getApplication();
-$input = $app->input;
-$assoc = JLanguageAssociations::isEnabled();
-
-// This checks if the config options have ever been saved. If they haven't they will fall back to the original settings.
-$params = json_decode($params);
+// This checks if the editor config options have ever been saved. If they haven't they will fall back to the original settings.
 $editoroptions = isset($params->show_publishing_options);
 
-//var_dump($this);die('this');
+if (!$editoroptions)
+{
+	$params->show_urls_images_frontend = '0';
+}
+//var_dump($this->form);
+
+JFactory::getDocument()->addScriptDeclaration("
+	Joomla.submitbutton = function(task)
+	{
+		if (task == 'event.cancel' || document.formvalidator.isValid(document.getElementById('adminForm')))
+		{
+			" . $this->form->getField('description')->save() . "
+			Joomla.submitform(task);
+		}
+	}
+");
 ?>
+<div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
+	<?php if ($params->get('show_page_heading')) : ?>
+	<div class="page-header">
+		<h1>
+			<?php echo $this->escape($params->get('page_heading')); ?>
+		</h1>
+	</div>
+	<?php endif; ?>
+	
+	<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
+		<div class="btn-toolbar">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.save')">
+					<span class="icon-ok"></span><?php echo JText::_('JSAVE') ?>
+				</button>
+			</div>
+			<div class="btn-group">
+				<button type="button" class="btn" onclick="Joomla.submitbutton('event.cancel')">
+					<span class="icon-cancel"></span><?php echo JText::_('JCANCEL') ?>
+				</button>
+			</div>
+		</div>
+		
+		<fieldset>
+			<ul class="nav nav-tabs">
+				<li class="active"><a href="#editor" data-toggle="tab"><?php echo JText::_('COM_UKRGB_EVENT_CONTENT') ?></a></li>
+				<li><a href="#details" data-toggle="tab"><?php echo JText::_('COM_UKRGB_DETAILS') ?></a></li>
+				<li><a href="#publishing" data-toggle="tab"><?php echo JText::_('COM_CONTENT_PUBLISHING') ?></a></li>
+			</ul>
+		
+			<div class="tab-content">
+				<div class="tab-pane active" id="editor">
+					<?php echo $this->form->renderField('title'); ?>
 
-<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+					<?php if (is_null($this->item->id)) : ?>
+						<?php echo $this->form->renderField('alias'); ?>
+					<?php endif; ?>
 
-	<?php echo JLayoutHelper::render('joomla.edit.title_alias', $this); ?>
-
-	<div class="form-horizontal">
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
-
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_CONTENT_ARTICLE_CONTENT', true)); ?>
-		<div class="row-fluid">
-			<div class="span9">
-				<div class="form-vertical ">
 					<?php echo $this->form->getControlGroup('location'); ?>
 					<?php echo $this->form->getControlGroup('summary'); ?>
-					<?php echo $this->form->getControlGroup('description'); ?>
+					<?php echo $this->form->getControlGroup('description'); ?>				
 				</div>
-			</div>
-			<div class="span3">
-				<fieldset class="form-vertical">
+		
+				<div class="tab-pane active" id="details">
 					<?php echo $this->form->getControlGroup('start_date'); ?>
 					<?php echo $this->form->getControlGroup('end_date'); ?>
 					<?php echo $this->form->getControlGroup('calid'); ?>
-				</fieldset>
-				<?php //echo JLayoutHelper::render('joomla.edit.global', $this); ?>
+					
+				</div>
+				<div class="tab-pane" id="publishing">
+					<?php echo $this->form->renderField('catid'); ?>
+					<?php if ($this->item->params->get('access-change')) : ?>
+						<?php echo $this->form->renderField('state'); ?>
+						<?php echo $this->form->renderField('publish_up'); ?>
+						<?php echo $this->form->renderField('publish_down'); ?>
+					<?php endif; ?>
+					<?php echo $this->form->renderField('access'); ?>
+					<?php if (is_null($this->item->id)):?>
+						<div class="control-group">
+							<div class="control-label">
+							</div>
+							<div class="controls">
+								<?php echo JText::_('COM_CONTENT_ORDERING'); ?>
+							</div>
+						</div>
+					<?php endif; ?>
+				</div>
+				<div class="tab-pane" id="metadata">
+					<?php echo $this->form->renderField('metadesc'); ?>
+					<?php echo $this->form->renderField('metakey'); ?>
+
+					<input type="hidden" name="task" value="" />
+					<input type="hidden" name="return" value="<?php echo $this->return_page; ?>" />
+					<?php if ($this->params->get('enable_category', 0) == 1) :?>
+					<input type="hidden" name="jform[catid]" value="<?php echo $this->params->get('catid', 1); ?>" />
+					<?php endif; ?>
+				</div>
 			</div>
-		</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+			<?php echo JHtml::_('form.token'); ?>
 
-		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
-
-		<?php //if ($this->canDo->get('core.admin')) : ?>
-			<?php //echo JHtml::_('bootstrap.addTab', 'myTab', 'editor', JText::_('COM_CONTENT_SLIDER_EDITOR_CONFIG', true)); ?>
-			<?php //echo $this->form->renderFieldset('editorConfig'); ?>
-			<?php //echo JHtml::_('bootstrap.endTab'); ?>
-		<?php //endif; ?>
-
-		<?php //if ($this->canDo->get('core.admin')) : ?>
-			<?php //echo JHtml::_('bootstrap.addTab', 'myTab', 'permissions', JText::_('COM_CONTENT_FIELDSET_RULES', true)); ?>
-				<?php //echo $this->form->getInput('rules'); ?>
-			<?php //echo JHtml::_('bootstrap.endTab'); ?>
-		<?php //endif; ?>
-
-		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
-
-		<input type="hidden" name="task" value="" />
-		<input type="hidden" name="return" value="<?php echo $input->getCmd('return'); ?>" />
-		<?php echo JHtml::_('form.token'); ?>
-
-
-		</div>
-</form>
+		</fieldset>
+	</form>
+</div>

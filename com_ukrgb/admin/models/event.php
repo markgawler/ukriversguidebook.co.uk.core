@@ -96,6 +96,8 @@ class UkrgbModelEvent extends JModelAdmin
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
+		// As this is called from Site add the form path
+		JFormHelper::addFormPath(JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/forms/');
 		
 		// Initialise variables.
 		$app	= JFactory::getApplication();

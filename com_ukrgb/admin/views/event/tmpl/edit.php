@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_ukrgb
- * @copyright	Copyright (C) 2012 Mark Gawler. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package		UKRGB - Event
+ * @copyright	Copyright (C) 2016 The UK Rivers Guide Book, All rights reserved.
+ * @author		Mark Gawler
+ * @link		http://www.ukriversguidebook.co.uk
+ * @license		License GNU General Public License version 2 or later
  */
 
 // no direct access
