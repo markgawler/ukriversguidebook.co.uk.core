@@ -61,7 +61,7 @@ class UkrgbModelEvent extends JModelItem
 		$this->setState('filter.language', JLanguageMultilang::isEnabled());
 	}
 
-	public function getEvent($pk = null)
+	public function getItem($pk = null)
 	{
 		$user = JFactory::getUser();
 		

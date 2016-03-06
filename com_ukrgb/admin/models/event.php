@@ -75,15 +75,7 @@ class UkrgbModelEvent extends JModelAdmin
 	public function getTable($type = 'Event', $prefix = 'UkrgbTable', $config = array())
 	{
 		$t = JTable::getInstance($type, $prefix, $config);
-		echo('<br>');
-		echo('<br>');
-		
-		var_dump($t);
-		echo('<br>');
-		var_dump($type);echo('<br>');
-		var_dump($prefix);echo('<br>');
-		var_dump($config);echo('<br>');
-		die('get Table admin');
+	
 		return $t;
 	}
 
@@ -255,7 +247,7 @@ class UkrgbModelEvent extends JModelAdmin
 			$data['alias']	= $alias;
 			$data['state']	= 0;
 		}
-
+//var_dump($data);die('save');
 		return parent::save($data);
 	}
 	

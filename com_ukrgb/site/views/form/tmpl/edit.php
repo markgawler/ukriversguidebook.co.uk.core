@@ -39,16 +39,16 @@ JFactory::getDocument()->addScriptDeclaration("
 	}
 ");
 ?>
-<div class="edit item-page<?php echo $this->pageclass_sfx; ?>">
+<div class="edit item-page">
 	<?php if ($params->get('show_page_heading')) : ?>
 	<div class="page-header">
 		<h1>
 			<?php echo $this->escape($params->get('page_heading')); ?>
 		</h1>
 	</div>
-	<?php endif; ?>
+	<?php endif;?>
 	
-	<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
+	<form action="<?php echo JRoute::_('index.php?option=com_ukrgb&layout=edit&a_id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
 		<div class="btn-toolbar">
 			<div class="btn-group">
 				<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.save')">
