@@ -27,12 +27,7 @@ class UkrgbRouter extends JComponentRouterBase
 	 */
 	public function build(&$query)
 	{
-		
 		$segments = array();
-
-		// Get a menu item based on Itemid or currently active
-		$params = JComponentHelper::getParams('com_ukrgb');
-		$advanced = $params->get('sef_advanced_link', 0);
 
 		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
 		if (empty($query['Itemid']))
@@ -43,12 +38,18 @@ class UkrgbRouter extends JComponentRouterBase
 		else
 		{
 			$menuItem = $this->menu->getItem($query['Itemid']);
+			//echo "<br>-------<br>";
+			//var_dump($menuItem);
+			//echo "<br>-------<br>";
+			//var_dump($menuItem->route);
+			//echo "<br>-------<br>";
+				
 			$menuItemGiven = true;
 		}
 
 		// Check again
 		if ($menuItemGiven && isset($menuItem) && $menuItem->component != 'com_ukrgb')
-		{
+		{				
 			$menuItemGiven = false;
 			unset($query['Itemid']);
 		}
@@ -63,30 +64,6 @@ class UkrgbRouter extends JComponentRouterBase
 			return $segments;
 		}
 
-		// Are we dealing with an event that is attached to a menu item?
-		if (($menuItem instanceof stdClass)
-			&& $menuItem->query['view'] == $query['view']
-			&& isset($query['id'])
-			&& $menuItem->query['id'] == (int) $query['id'])
-		{
-			unset($query['view']);
-/*
-			if (isset($query['catid']))Content
-			{
-				unset($query['catid']);
-			}
-
-			if (isset($query['layout']))echo "rout build";
-		die();
-			{
-				unset($query['layout']);
-			}
-*/
-			unset($query['id']);
-
-			return $segments;
-		}
-
 		if ($view == 'event')
 		{
 			if (!$menuItemGiven)
@@ -96,171 +73,37 @@ class UkrgbRouter extends JComponentRouterBase
 
 			unset($query['view']);
 
-			//if ($view == 'article')
-			//{
-				if (isset($query['id']) && isset($query['catid']) && $query['catid'])
-				{
-					$catid = $query['catid'];
-
-					// Make sure we have the id and the alias
-					if (strpos($query['id'], ':') === false)
-					{
-						$db = JFactory::getDbo();
-						$dbQuery = $db->getQuery(true)
-							->select('alias')
-							->from('#__ukrgb_events')
-							->where('id=' . (int) $query['id']);
-						$db->setQuery($dbQuery);
-						$alias = $db->loadResult();
-						$query['id'] = $query['id'] . ':' . $alias;
-					}
-				}
-				else
-				{
-					// We should have these two set for this view.  If we don't, it is an error
-					return $segments;
-				}
-			/*}
-			else
+			
+			if (isset($query['id']))
 			{
-				if (isset($query['id']))
+				// Make sure we have the id and the alias
+				if (strpos($query['id'], ':') === false)
 				{
-					$catid = $query['id'];
+					$db = JFactory::getDbo();
+					$dbQuery = $db->getQuery(true)
+						->select('alias')
+						->from('#__ukrgb_events')
+						->where('id=' . (int) $query['id']);
+					$db->setQuery($dbQuery);
+					$alias = $db->loadResult();
+					$query['id'] = $query['id'] . ':' . $alias;
 				}
-				else
-				{
-					// We should have id set for this view.  If we don't, it is an error
-					return $segments;
-				}
-			}*/
-
-			if ($menuItemGiven && isset($menuItem->query['id']))
-			{
-				$mCatid = $menuItem->query['id'];
 			}
 			else
 			{
-				$mCatid = 0;
-			}
-
-			$categories = JCategories::getInstance('Ukrgb');
-			$category = $categories->get($catid);
-
-			if (!$category)
-			{
-				// We couldn't find the category we were given.  Bail.
+				// We should have these two set for this view.  If we don't, it is an error
 				return $segments;
 			}
-
-			$path = array_reverse($category->getPath());
-
-			$array = array();
-
-			foreach ($path as $id)
-			{
-				if ((int) $id == (int) $mCatid)
-				{
-					break;
-				}
-
-				list($tmp, $id) = explode(':', $id, 2);
-
-				$array[] = $id;
-			}
-
-			$array = array_reverse($array);
-
-			if (!$advanced && count($array))
-			{
-				$array[0] = (int) $catid . ':' . $array[0];
-			}
-
-			$segments = array_merge($segments, $array);
-
-			if ($view == 'event')
-			{
-				if ($advanced)
-				{
-					list($tmp, $id) = explode(':', $query['id'], 2);
-				}
-				else
-				{
-					$id = $query['id'];
-				}
-
-				$segments[] = $id;
-			}
-
+			$segments[] = $query['id'];
 			unset($query['id']);
-			unset($query['catid']);
-		}
-/*
-		if ($view == 'archive')
-		{
-			if (!$menuItemGiven)
-			{
-				$segments[] = $view;
-				unset($query['view']);
-			}
-
-			if (isset($query['year']))
-			{
-				if ($menuItemGiven)
-				{
-					$segments[] = $query['year'];
-					unset($query['year']);
-				}
-			}
-
-			if (isset($query['year']) && isset($query['month']))
-			{
-				if ($menuItemGiven)
-				{
-					$segments[] = $query['month'];
-					unset($query['month']);
-				}
-			}
-		}
-
-		if ($view == 'featured')
-		{
-			if (!$menuItemGiven)
-			{
-				$segments[] = $view;
-			}
-
-			unset($query['view']);
-		}
-*/
-		/*
-		 * If the layout is specified and it is the same as the layout in the menu item, we
-		 * unset it so it doesn't go into the query string.
-		 */
-/*
-		if (isset($query['layout']))
-		{
-			if ($menuItemGiven && isset($menuItem->query['layout']))
-			{
-				if ($query['layout'] == $menuItem->query['layout'])
-				{
-					unset($query['layout']);
-				}
-			}
-			else
-			{
-				if ($query['layout'] == 'default')
-				{
-					unset($query['layout']);
-				}
-			}
-		}
-*/
-		$total = count($segments);
-
-		for ($i = 0; $i < $total; $i++)
-		{
-			$segments[$i] = str_replace(':', '-', $segments[$i]);
-		}
+			//$p = '';
+			//foreach ($segments as $s)
+			//{
+			//	$p = $p . $s . '@'; 
+			//}
+			
+			//error_log($p);
+		}		
 
 		return $segments;
 	}
@@ -276,8 +119,8 @@ class UkrgbRouter extends JComponentRouterBase
 	 */
 	public function parse(&$segments)
 	{
-		echo "parse rout";
-		die();
+		//var_dump($segments);
+		//die('parse');
 		$total = count($segments);
 		$vars = array();
 

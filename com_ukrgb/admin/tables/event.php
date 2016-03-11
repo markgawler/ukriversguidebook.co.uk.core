@@ -74,7 +74,7 @@ class UkrgbTableEvent extends JTable
 	public function check()
 	{
 		// check for existing name
-		$db = $this->_db;
+		/*$db = $this->_db;
 		$query = $db->getQuery(true);
 		$query->select('id');
 		$query->from($db->quoteName('#__ukrgb_events'));
@@ -87,6 +87,7 @@ class UkrgbTableEvent extends JTable
 			$this->setError(JText::_('COM_UKRGB_ERR_TABLES_NAME'));
 			return false;
 		}
+		*/
 		
 		if ($this->calid == 0){
 			$this->setError(JText::_('COM_UKRGB_NO_CALENDAR'));

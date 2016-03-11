@@ -73,9 +73,9 @@ JFactory::getDocument()->addScriptDeclaration("
 				<div class="tab-pane active" id="editor">
 					<?php echo $this->form->renderField('title'); ?>
 
-					<?php if (is_null($this->item->id)) : ?>
+					<?php //if (is_null($this->item->id)) : ?>
 						<?php echo $this->form->renderField('alias'); ?>
-					<?php endif; ?>
+					<?php //endif; ?>
 
 					<?php echo $this->form->getControlGroup('location'); ?>
 					<?php echo $this->form->getControlGroup('summary'); ?>

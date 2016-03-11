@@ -237,17 +237,48 @@ class UkrgbModelEvent extends JModelAdmin
 	 */
 	public function save($data)
 	{		
-		$app = JFactory::getApplication();
+		$input = JFactory::getApplication()->input;
+		
+		// Automatic handling of alias for empty fields
+		if (in_array($input->get('task'), array('apply', 'save', 'save2new')) && (!isset($data['id']) || (int) $data['id'] == 0))
+		{
+			if ($data['alias'] == null)
+			{
+				if (JFactory::getConfig()->get('unicodeslugs') == 1)
+				{
+					$data['alias'] = JFilterOutput::stringURLUnicodeSlug($data['title']);
+				}
+				else
+				{
+					$data['alias'] = JFilterOutput::stringURLSafe($data['title']);
+				}
+		
+				$table = JTable::getInstance('Event', 'UkrgbTable');
+		
+				if ($table->load(array('alias' => $data['alias'], 'catid' => $data['catid'])))
+				{
+					$msg = JText::_('COM_UKRGB_SAVE_WARNING');
+				}
+		
+				list($title, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
+				$data['alias'] = $alias;
+		
+				if (isset($msg))
+				{
+					JFactory::getApplication()->enqueueMessage($msg, 'warning');
+				}
+			}
+		}
+
 	
 		// Alter the title for save as copy
-		if ($app->input->get('task') == 'save2copy')
+		if ($input->get('task') == 'save2copy')
 		{
 			list($name, $alias) = $this->generateNewTitle($data['catid'], $data['alias'], $data['title']);
 			$data['title']	= $name;
 			$data['alias']	= $alias;
 			$data['state']	= 0;
 		}
-//var_dump($data);die('save');
 		return parent::save($data);
 	}
 	

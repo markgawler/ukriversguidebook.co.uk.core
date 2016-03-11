@@ -26,12 +26,13 @@ abstract class UkrgbHelperRoute
 	 * @param   integer  $catid     The category ID.
 	 * @param   integer  $language  The language code.
 	 *
-	 * @return  string  The article route.
+	 * @return  string  The event route.
 	 *
-	 * @since   1.5
 	 */
 	public static function getArticleRoute($id, $catid = 0, $language = 0)
 	{
+		
+		
 		$needles = array(
 			'event'  => array((int) $id)
 		);
@@ -39,18 +40,7 @@ abstract class UkrgbHelperRoute
 		// Create the link
 		$link = 'index.php?option=com_ukrgb&view=event&id=' . $id;
 
-		if ((int) $catid > 1)
-		{
-			$categories = JCategories::getInstance('Ukrgb');
-			$category   = $categories->get((int) $catid);
-
-			if ($category)
-			{
-				$needles['category']   = array_reverse($category->getPath());
-				$needles['categories'] = $needles['category'];
-				$link .= '&catid=' . $catid;
-			}
-		}
+		
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
 		{
@@ -62,84 +52,12 @@ abstract class UkrgbHelperRoute
 		{
 			$link .= '&Itemid=' . $item;
 		}
+		error_log($link);
 
 		return $link;
 	}
 
-	/**
-	 * Get the category route.
-	 *
-	 * @param   integer  $catid     The category ID.
-	 * @param   integer  $language  The language code.
-	 *
-	 * @return  string  The article route.
-	 *
-	 * @since   1.5
-	 */
-	public static function xxgetCategoryRoute($catid, $language = 0)
-	{
-		if ($catid instanceof JCategoryNode)
-		{
-			$id       = $catid->id;
-			$category = $catid;
-		}
-		else
-		{
-			$id       = (int) $catid;
-			$category = JCategories::getInstance('Content')->get($id);
-		}
-
-		if ($id < 1 || !($category instanceof JCategoryNode))
-		{
-			$link = '';
-		}
-		else
-		{
-			$needles               = array();
-			$link                  = 'index.php?option=com_content&view=category&id=' . $id;
-			$catids                = array_reverse($category->getPath());
-			$needles['category']   = $catids;
-			$needles['categories'] = $catids;
-
-			if ($language && $language != "*" && JLanguageMultilang::isEnabled())
-			{
-				$link .= '&lang=' . $language;
-				$needles['language'] = $language;
-			}
-
-			if ($item = self::_findItem($needles))
-			{
-				$link .= '&Itemid=' . $item;
-			}
-		}
-
-		return $link;
-	}
-
-	/**
-	 * Get the form route.
-	 *
-	 * @param   integer  $id  The form ID.
-	 *
-	 * @return  string  The article route.
-	 *
-	 * @since   1.5
-	 */
-	public static function xxgetFormRoute($id)
-	{
-		// Create the link
-		if ($id)
-		{
-			$link = 'index.php?option=com_content&task=article.edit&a_id=' . $id;
-		}
-		else
-		{
-			$link = 'index.php?option=com_content&task=article.edit&a_id=0';
-		}
-
-		return $link;
-	}
-
+	
 	/**
 	 * Find an item ID.
 	 *
@@ -154,8 +72,14 @@ abstract class UkrgbHelperRoute
 		$menus    = $app->getMenu('site');
 		$language = isset($needles['language']) ? $needles['language'] : '*';
 
-		//TODO - everything uses the default language for the forseable future.
-
+		// Check if the active menuitem matches the requested language
+		$active = $menus->getActive();
+		
+		if ($active	&& $active->component == 'com_ukrgb')
+		{
+			return $active->id;
+		}
+		//TODO - everything uses the default language for the foreseeable future.
 		// If not found, return language specific home link
 		$default = $menus->getDefault($language);
 
