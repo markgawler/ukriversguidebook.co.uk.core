@@ -31,16 +31,12 @@ abstract class UkrgbHelperRoute
 	 */
 	public static function getArticleRoute($id, $catid = 0, $language = 0)
 	{
-		
-		
 		$needles = array(
 			'event'  => array((int) $id)
 		);
 
 		// Create the link
 		$link = 'index.php?option=com_ukrgb&view=event&id=' . $id;
-
-		
 
 		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
 		{
@@ -52,7 +48,6 @@ abstract class UkrgbHelperRoute
 		{
 			$link .= '&Itemid=' . $item;
 		}
-		error_log($link);
 
 		return $link;
 	}

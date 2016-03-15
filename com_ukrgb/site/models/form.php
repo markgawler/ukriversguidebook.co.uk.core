@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
 
 // Base this model on the backend version.
 require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
-require_once JPATH_COMPONENT .'/helpers/log.php';
+//require_once JPATH_COMPONENT .'/helpers/log.php';
 
 /**
  * Ukrgb Component event Model
@@ -23,11 +23,10 @@ require_once JPATH_COMPONENT .'/helpers/log.php';
  */
 class UkrgbModelForm extends UkrgbModelEvent
 {
-	private $logger ;
+	//private $logger ;
 	public function __construct($config = array())
 	{
-		//die('UkrgbModelForm __construct');
-		$this->logger = new UkrgbLogger();
+		//$this->logger = new UkrgbLogger();
 		//$this->logger->log("UkrgbModelForm __construct");
 		return parent::__construct($config);
 	}
@@ -97,7 +96,6 @@ class UkrgbModelForm extends UkrgbModelEvent
 
 		// Convert attrib field to Registry.
 		$value->params = new Registry;
-		//$value->params->loadString($value->attribs);
 
 		// Compute selected asset permissions.
 		$user   = JFactory::getUser();
@@ -141,9 +139,6 @@ class UkrgbModelForm extends UkrgbModelEvent
 				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_ukrgb'));
 			}
 		}
-
-		//$value->eventtext = $value->introtext;
-
 
 		return $value;
 	}

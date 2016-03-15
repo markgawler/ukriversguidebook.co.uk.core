@@ -21,6 +21,7 @@ class UkrgbViewForm extends JViewLegacy
 {
 	protected $item;
 	protected $form;
+	protected $return_page;
 	
 	protected $user;
 		
@@ -40,14 +41,10 @@ class UkrgbViewForm extends JViewLegacy
 		$this->item = $this->get('Item');
 		$this->form  = $this->get('Form');
 		
+		$this->return_page = $this->get('ReturnPage');
+		
 		//$dispatcher = JEventDispatcher::getInstance();
 		
-		
-		//var_dump($this->form);
-		//die('Form');
-		
-		//echo "<br>";
-		//var_dump($this->event);
 		if (empty($this->item->id))
 		{
 			$authorised = $user->authorise('core.create', 'com_ukrgb') || (count($user->getAuthorisedCategories('com_ukrfg', 'core.create')));
@@ -63,18 +60,6 @@ class UkrgbViewForm extends JViewLegacy
 		
 			return false;
 		}
-		
-		
-		//if (!empty($this->item) && isset($this->item->id))
-		//{
-			//$this->item->images = json_decode($this->item->images);
-			//$this->item->urls = json_decode($this->item->urls);
-		
-			//$tmp = new stdClass;
-			//$tmp->images = $this->item->images;
-			//$tmp->urls = $this->item->urls;
-			//$this->form->bind($tmp);
-		//}
 		
 		
 		// Check for errors.
