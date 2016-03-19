@@ -21,7 +21,7 @@ require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
  * Ukrgb Component event Model
  *
  */
-class UkrgbModelForm extends UkrgbModelEvent
+class UkrgbModelEvform extends UkrgbModelEvent
 {
 	//private $logger ;
 	public function __construct($config = array())

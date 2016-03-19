@@ -204,7 +204,7 @@ class UkrgbControllerEvent extends JControllerForm
 	 * @return  object  The model.
 	 *
 	 */
-	public function getModel($name = 'Form', $prefix = '' , $config = array('ignore_request' => true))
+	public function getModel($name = 'Evform', $prefix = '' , $config = array('ignore_request' => true))
 	{
 		$this->logger->log("getModel");
 		$model = parent::getModel($name, $prefix, $config);

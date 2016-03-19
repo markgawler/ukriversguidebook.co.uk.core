@@ -111,7 +111,7 @@ class plgContentUkrgb extends JPlugin {
 
 				return false;
 			}
-		} elseif ($context == 'com_ukrgb.event'){
+		} elseif ($context == 'com_ukrgb.event' || $context == 'com_ukrgb.evform'){
 			// Event Bot
 			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
 			$this->helper = new UkrgbEventBotHelper($article, $isNew);
@@ -146,13 +146,14 @@ class plgContentUkrgb extends JPlugin {
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GUIDE_SAVE_FAIL"). ':' .$article->title  , 'warning');
 			}	
-		} elseif ($context == 'com_ukrgb.event'){
+		} elseif ($context == 'com_ukrgb.event' || $context == 'com_ukrgb.evform') {
 			// Event Bot
 			include_once JPATH_SITE . '/plugins/content/ukrgb/helper/helper.php';
 			$this->helper = new UkrgbEventBotHelper($article, $isNew);
 			
 			// If new event or thread info invalid create a new thread
 			if ($isNew || $article->forumid == 0 || $article->threadid == 0 || $article->postid == 0 ) {
+				$this->logger->log("Create new.");
 				$this->helper->createThread();
 			} else {
 				if ($this->helper->isValidThread())
@@ -160,6 +161,7 @@ class plgContentUkrgb extends JPlugin {
 					$this->logger->log("Update thread, original thread has gone create new.");
 					$this->helper->createThread();
 				} else {
+					$this->logger->log("Update thread.");
 					$this->helper->updateThread();
 				}
 			}
