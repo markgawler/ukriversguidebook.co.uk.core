@@ -27,7 +27,6 @@ class UkrgbModelEvform extends UkrgbModelEvent
 	public function __construct($config = array())
 	{
 		//$this->logger = new UkrgbLogger();
-		//$this->logger->log("UkrgbModelForm __construct");
 		return parent::__construct($config);
 	}
 

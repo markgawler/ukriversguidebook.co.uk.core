@@ -18,6 +18,48 @@ use Joomla\Registry\Registry;
  */
 abstract class JHtmlIcon
 {
+	/**
+	 * Method to generate a link to the create item page for the given category
+	 *
+	 * @param   object    $category  The category information
+	 * @param   Registry  $params    The item parameters
+	 * @param   array     $attribs   Optional attributes for the link
+	 *
+	 * @return  string  The HTML markup for the create item link
+	 */
+	public static function create($category, $params, $attribs = array())
+	{
+		JHtml::_('bootstrap.tooltip');
+	
+		$uri = JUri::getInstance();
+	
+		$url = 'index.php?option=com_ukrgb&task=event.add&return=' . base64_encode($uri) . '&a_id=0&catid=' . $category->id;
+	
+		if ($params->get('show_icons'))
+		{
+			$text = '<span class="icon-plus"></span>' . JText::_('JNEW');
+		}
+		else
+		{
+			$text = JText::_('JNEW') . '&#160;';
+		}
+	
+		// Add the button classes to the attribs array
+		if (isset($attribs['class']))
+		{
+			$attribs['class'] = $attribs['class'] . ' btn btn-primary';
+		}
+		else
+		{
+			$attribs['class'] = 'btn btn-primary';
+		}
+	
+		$button = JHtml::_('link', JRoute::_($url), $text, $attribs);
+	
+		$output = '<span class="hasTooltip" title="' . JHtml::tooltipText('COM_UKRGB_CREATE_EVENT') . '">' . $button . '</span>';
+	
+		return $output;
+	}
 	
 	/**
 	 * Display an edit icon for the event.

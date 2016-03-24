@@ -17,24 +17,20 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the Ukrgb Component
  */
-class UkrgbViewEvents extends JViewLegacy
+class UkrgbViewCalendars extends JViewLegacy
 {
-	protected $events;
+	protected $calendars;
 	
 	protected $user;
 		
 	protected $params;
-	
-	protected $print;
 		
 	protected $state;
 	
 	protected $autoloadLanguage = true;
 	
 	protected $slug;
-	
-	protected $pagination = null;
-	
+		
 	
 	// Overwriting JView display method
 	function display($tpl = null) 
@@ -43,14 +39,20 @@ class UkrgbViewEvents extends JViewLegacy
 		$user       = JFactory::getUser();
 		$dispatcher = JEventDispatcher::getInstance();
 		
-		$this->events  = $this->get('Items');
-		$this->print = $app->input->getBool('print');
-		$this->state = $this->get('State');
+		$this->calendars  = $this->get('Items');
 		$this->user  = $user;
-		$this->pagination = $this->get('Pagination');
+		$this->canCreate = $this->get('CanCreateEntry');
+		$this->state = $this->get('State');
 		
-		foreach ($this->events as $event){
-			$event->slug = $event->alias ? ($event->id . ':' . $event->alias) : $event->id;
+		$this->cat = array();
+		foreach ($this->calendars as $cal){
+			$cal->slug = $cal->alias ? ($cal->id . ':' . $cal->alias) : $cal->id;
+			if (!isset($this->cat[$cal->catid])){
+				// make a category object with just the data we need!
+				$cat = new stdClass();
+				$cat->id = $cal->catid;
+				$this->cat[$cal->catid] = $cat;
+			}
 		}
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
@@ -61,6 +63,7 @@ class UkrgbViewEvents extends JViewLegacy
 		}
 		$this->params = $this->state->get('params');
 
+		
 				
 		// Display the view
 		parent::display($tpl);

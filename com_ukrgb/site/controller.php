@@ -27,24 +27,6 @@ class UkrgbController extends JControllerLegacy
 		parent::display();
 	}
 	
-	function event()
-	{
-		die('-- Event --');
-
-		$input = JFactory::getApplication()->input;
-		$input->set('view','event');
-		parent::display();
-	}
-	
-	function events()
-	{
-		die('-- Events --');
-		$input = JFactory::getApplication()->input;
-		$input->set('view','events');
-		parent::display();
-	}
-	
-	
 	/**
 	 * @var		string	The default view.
 	 */
@@ -73,7 +55,6 @@ class UkrgbController extends JControllerLegacy
 			return JError::raiseError(403, JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));
 		}
 		
-	
 		return parent::display();
 	}
 	

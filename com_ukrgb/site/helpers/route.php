@@ -20,7 +20,7 @@ abstract class UkrgbHelperRoute
 	protected static $lookup = array();
 
 	/**
-	 * Get the article route.
+	 * Get the event route.
 	 *
 	 * @param   integer  $id        The route of the content item.
 	 * @param   integer  $catid     The category ID.
@@ -29,7 +29,7 @@ abstract class UkrgbHelperRoute
 	 * @return  string  The event route.
 	 *
 	 */
-	public static function getArticleRoute($id, $catid = 0, $language = 0)
+	public static function getEventRoute($id, $catid = 0, $language = 0)
 	{
 		$needles = array(
 			'event'  => array((int) $id)
@@ -52,6 +52,39 @@ abstract class UkrgbHelperRoute
 		return $link;
 	}
 
+	/**
+	 * Get the calendar route.
+	 *
+	 * @param   integer  $id        The route of the content item.
+	 * @param   integer  $catid     The category ID.
+	 * @param   integer  $language  The language code.
+	 *
+	 * @return  string  The event route.
+	 *
+	 */
+	public static function getCalendarRoute($id, $catid = 0, $language = 0)
+	{
+		$needles = array(
+				'calendar'  => array((int) $id)
+		);
+	
+		// Create the link
+		$link = 'index.php?option=com_ukrgb&view=calendar&id=' . $id;
+	
+		if ($language && $language != "*" && JLanguageMultilang::isEnabled())
+		{
+			$link .= '&lang=' . $language;
+			$needles['language'] = $language;
+		}
+	
+		if ($item = self::_findItem($needles))
+		{
+			$link .= '&Itemid=' . $item;
+		}
+	
+		return $link;
+	}
+	
 	
 	/**
 	 * Find an item ID.

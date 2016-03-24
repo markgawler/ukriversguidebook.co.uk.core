@@ -121,6 +121,12 @@ class UkrgbRouter extends JComponentRouterBase
 				$vars['id'] = (int) $id[0];
 				$vars['view'] = 'event';
 				break;
+				
+			case 'calendar':
+				$id = explode(':', $segments[$count-1]);
+				$vars['id'] = (int) $id[0];
+				$vars['view'] = 'calendar';
+				break;
 		}
 		return $vars;
 		

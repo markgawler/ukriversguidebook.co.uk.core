@@ -25,7 +25,7 @@ class UkrgbLogger {
 
 	function log($message, $priority = JLog::DEBUG)
 	{
-		echo $message;
+		//echo $message;
 		jimport('joomla.application.component.helper');
 
 		if (JComponentHelper::getParams('com_ukrgb')->get('debug')){

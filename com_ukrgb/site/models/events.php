@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
  * This models supports retrieving lists of events.
  *
  */
-class UkrgbModelevents extends JModelList
+class UkrgbModelEvents extends JModelList
 {
 	/**
 	 * Constructor.
@@ -482,8 +482,6 @@ class UkrgbModelevents extends JModelList
 			$item->layout = $eventParams->get('layout');
 
 			$item->params = clone $this->getState('params');
-
-			
 
 			// Get display date
 			switch ($item->params->get('list_show_date'))

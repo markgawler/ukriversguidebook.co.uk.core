@@ -114,7 +114,7 @@ if (!empty($this->events))
 					<td <?php echo $headerTitle; ?> class="list-title">
 						
 
-							<a href="<?php echo JRoute::_(UkrgbHelperRoute::getArticleRoute($event->slug, $event->catid, $event->language)); ?>">
+							<a href="<?php echo JRoute::_(UkrgbHelperRoute::getEventRoute($event->slug, $event->catid, $event->language)); ?>">
 								<?php echo $this->escape($event->title); ?>
 							</a>
 						
@@ -169,11 +169,6 @@ if (!empty($this->events))
 		</tbody>
 	</table>
 <?php endif; ?>
-
-<?php // Code to add a link to submit an article. ?>
-<?php //if ($this->category->getParams()->get('access-create')) : ?>
-	<?php //echo JHtml::_('icon.create', $this->category, $this->category->params); ?>
-<?php // endif; ?>
 
 <?php // Add pagination links ?>
 <?php if (!empty($this->events)) : ?>

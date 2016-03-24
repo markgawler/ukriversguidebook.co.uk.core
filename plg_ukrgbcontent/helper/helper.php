@@ -120,8 +120,10 @@ class UkrgbEventBotHelper {
 		$dbparams->jname = $this->jname;
 		$dbparams->debug = true;
 		$dbparams->use_content_created_date = true;
+		$dbparams->first_post_link = false; // we need to create our own link JF always creates com_content links
 		return new JRegistry($dbparams);
 	}
+	
 	
 	private function createPostText($cal){
 		$db = JFactory::getDBO();
@@ -140,15 +142,9 @@ class UkrgbEventBotHelper {
 		$count = preg_match_all('#\{\w*\}#', $template, $matches);
 		foreach ($matches[0] as $match){
 			$propName = trim($match,'{}');
+			$this->event->link = trim(JURI::root(false, JRoute::_(UkrgbHelperRoute::getEventRoute($this->event->id))),'/');
 			if (property_exists($this->event, $propName)){
-				//if ($propName == "start_date"){
-					//$template = str_replace($match, $this->event->$propName, $template);
-					//$this->logger->log(" property value: " . $this->event->$propName);
-					//var_dump($this->event->$propName);
-					//die();
-				//} else {
-					$template = str_replace($match, $this->event->$propName, $template);
-				//}
+				$template = str_replace($match, $this->event->$propName, $template);
 			} else {
 				$this->logger->log("template property: " . $match . "  Invalid");
 			}
