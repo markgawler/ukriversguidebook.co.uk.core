@@ -107,7 +107,7 @@ if (!empty($this->events))
 		<tbody>
 			<?php foreach ($this->events as $i => $event) : ?>
 				<?php if ($this->events[$i]->state == 0) : ?>
-				 <tr class="system-unpublished cat-list-row<?php echo $i % 2; ?>">
+				<tr class="system-unpublished cat-list-row<?php echo $i % 2; ?>">
 				<?php else: ?>
 				<tr class="cat-list-row<?php echo $i % 2; ?>" >
 				<?php endif; ?>

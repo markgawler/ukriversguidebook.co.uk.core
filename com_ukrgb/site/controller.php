@@ -47,9 +47,14 @@ class UkrgbController extends JControllerLegacy
 		$layout = $this->input->get('layout', 'events');
 		$id     = $this->input->getInt('id');
 	
+		if ($view == 'form'){
+			// delete me at some point
+			//throw new Exception ("Invalid view name form",500);
+			return JError::raiseError(500, 'Invalid view name form');
+		}
 		
 		// Check for edit form.
-		if ($view == 'form' && !$this->checkEditId('com_ukrgb.edit.event', $id))
+		if ($view == 'evform' && !$this->checkEditId('com_ukrgb.edit.event', $id))
 		{
 			// Somehow the person just went to the form - we don't allow that.
 			return JError::raiseError(403, JText::sprintf('JLIB_APPLICATION_ERROR_UNHELD_ID', $id));

@@ -122,7 +122,7 @@ abstract class JHtmlIcon
 			return $output;
 		}
 
-		$url = 'index.php?option=com_ukrgb&task=event.edit&a_id=' . $event->id . '&return=' . base64_encode($uri);
+		$url = 'index.php?option=com_ukrgb&task=event.edit&a_id=' . $event->id .'&catid=' . $event->catid . '&return=' . base64_encode($uri);
 
 		if ($event->state == 0)
 		{

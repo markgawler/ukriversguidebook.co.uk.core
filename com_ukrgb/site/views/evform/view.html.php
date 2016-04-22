@@ -11,39 +11,28 @@
 // No direct access to this file
 defined('_JEXEC') or die();
 
-// import Joomla view library
-//jimport('joomla.application.component.view');
-
 /**
  * HTML View class for the Ukrgb Component
  */
-class UkrgbViewForm extends JViewLegacy
+class UkrgbViewEvform extends JViewLegacy
 {
 	protected $item;
-	protected $form;
-	protected $return_page;
 	
-	protected $user;
-		
-	protected $params;
+	protected $form;
+	
+	protected $return_page;
 			
 	protected $state;
-	
-	protected $autoloadLanguage = true;
-	
-		
+			
 	// Overwriting JView display method
 	function display($tpl = null) 
 	{
-		//$app        = JFactory::getApplication();
 		$user        = JFactory::getUser();
 		$this->state = $this->get('State');
 		$this->item = $this->get('Item');
-		$this->form  = $this->get('Form');
 		
 		$this->return_page = $this->get('ReturnPage');
-		
-		//$dispatcher = JEventDispatcher::getInstance();
+		$this->form  = $this->get('Form');
 		
 		if (empty($this->item->id))
 		{
@@ -56,6 +45,11 @@ class UkrgbViewForm extends JViewLegacy
 		
 		if ($authorised !== true)
 		{
+			//echo "access-edit" . $this->item->params->get('access-edit').'<br>';
+			//echo "Auth: " . $authorised .'<br>';
+			//echo "Id: " . $this->item->id . '<br>';
+			//die();
+			
 			JError::raiseError(403, JText::_('JERROR_ALERTNOAUTHOR'));
 		
 			return false;
@@ -69,8 +63,14 @@ class UkrgbViewForm extends JViewLegacy
 		
 			return false;
 		}
-		$this->params = $this->state->get('params');
-				
+		$params = &$this->state->get('params');
+		
+		$this->params = $params;
+		
+		$this->params->merge($this->item->params);
+		
+		$this->user   = $user;
+		
 		// Display the view
 		parent::display($tpl);
 	}

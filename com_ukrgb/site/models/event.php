@@ -9,6 +9,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
+require_once JPATH_COMPONENT .'/helpers/log.php';
 
 
 /**
@@ -24,6 +25,14 @@ class UkrgbModelEvent extends JModelItem
 	 */
 	protected $_context = 'com_ukrgb.event';
 	
+	private $logger ;
+	public function __construct($config = array())
+	{
+		$this->logger = new UkrgbLogger();
+		$this->logger->log("UkrgbModelEvent __construct");
+	
+		return parent::__construct($config);
+	}
 	public function getTable($type = 'Event', $prefix = 'UkrgbTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
@@ -39,7 +48,7 @@ class UkrgbModelEvent extends JModelItem
 	protected function populateState()
 	{
 		$app = JFactory::getApplication('site');
-		
+		//die('UkrgbModelEvent - pop stare ');
 		// Load state from the request.
 		$pk = $app->input->getInt('id');
 		$this->setState('event.id', $pk);

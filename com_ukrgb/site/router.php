@@ -27,6 +27,7 @@ class UkrgbRouter extends JComponentRouterBase
 	 */
 	public function build(&$query)
 	{
+		//var_dump($query);die('query');
 		$segments = array();
 
 		// We need a menu item.  Either the one specified in the query, or the current active one if none specified
@@ -107,6 +108,7 @@ class UkrgbRouter extends JComponentRouterBase
 	 */
 	public function parse(&$segments)
 	{
+		//var_dump($segments);die('segments');
 		$vars = array();
 		$app = JFactory::getApplication();
 		$menu = $app->getMenu();

@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
+require_once JPATH_COMPONENT .'/helpers/log.php';
 
 /**
  * This models supports retrieving lists of events.
@@ -17,6 +18,7 @@ use Joomla\Registry\Registry;
  */
 class UkrgbModelEvents extends JModelList
 {
+	private $logger ;
 	/**
 	 * Constructor.
 	 *
@@ -26,6 +28,7 @@ class UkrgbModelEvents extends JModelList
 	 */
 	public function __construct($config = array())
 	{
+		$this->logger = new UkrgbLogger();
 		
 		if (empty($config['filter_fields']))
 		{
@@ -504,8 +507,10 @@ class UkrgbModelEvents extends JModelList
 			// Technically guest could edit an event, but lets not check that to improve performance a little.
 			if (!$guest)
 			{
-				$asset = 'com_ukrgb.event.' . $item->id;
-
+				$asset = 'com_ukrgb.category.' . $item->catid;
+				
+				$this->logger->log("edit       " . $user->authorise('core.edit', $asset));
+				
 				// Check general edit permission first.
 				if ($user->authorise('core.edit', $asset))
 				{

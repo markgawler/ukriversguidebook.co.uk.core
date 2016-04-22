@@ -26,7 +26,7 @@ class UkrgbControllerEvent extends JControllerForm
 	 *
 	 * @var    string
 	 */
-	protected $view_item = 'form';
+	protected $view_item = 'evform';
 
 	/**
 	 * The URL view list variable.
@@ -75,7 +75,7 @@ class UkrgbControllerEvent extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		$this->logger->log("allowAdd");
+		$this->logger->log("1 allowAdd");
 
 		$user       = JFactory::getUser();
 		$categoryId = JArrayHelper::getValue($data, 'catid', $this->input->getInt('catid'), 'int');
@@ -86,7 +86,8 @@ class UkrgbControllerEvent extends JControllerForm
 			// If the category has been passed in the data or URL check it.
 			$allow = $user->authorise('core.create', 'com_ukrgb.category.' . $categoryId);
 		}
-
+		$this->logger->log("2 allowAdd:- " . $allow);
+		
 		if ($allow === null)
 		{
 			// In the absense of better information, revert to the component permissions.
@@ -110,13 +111,17 @@ class UkrgbControllerEvent extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		$this->logger->log("allowEdit");
+		$this->logger->log("UkrgbControllerEvent allowEdit");
+		$categoryId = JArrayHelper::getValue($data, 'catid', $this->input->getInt('catid'), 'int');
+
+		$this->logger->log("allowEdit cat: " . $categoryId );
 		
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		$user     = JFactory::getUser();
 		$userId   = $user->get('id');
-		$asset    = 'com_ukrgb.event.' . $recordId;
-
+		//$asset    = 'com_ukrgb.event.' . $recordId;
+		$asset    = 'com_ukrgb.category.' . $categoryId;
+		
 		// Check general edit permission first.
 		if ($user->authorise('core.edit', $asset))
 		{
@@ -146,10 +151,11 @@ class UkrgbControllerEvent extends JControllerForm
 			// If the owner matches 'me' then do the test.
 			if ($ownerId == $userId)
 			{
+				$this->logger->log("allowEdit: core.edit.own Yes");
 				return true;
 			}
 		}
-
+		
 		// Since there is no asset tracking, revert to the component permissions.
 		return parent::allowEdit($data, $key);
 	}
@@ -206,7 +212,7 @@ class UkrgbControllerEvent extends JControllerForm
 	 */
 	public function getModel($name = 'Evform', $prefix = '' , $config = array('ignore_request' => true))
 	{
-		$this->logger->log("getModel");
+		$this->logger->log("getModel: " . $name);
 		$model = parent::getModel($name, $prefix, $config);
 
 		return $model;

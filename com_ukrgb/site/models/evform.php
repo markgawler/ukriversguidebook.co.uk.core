@@ -15,7 +15,7 @@ use Joomla\Registry\Registry;
 
 // Base this model on the backend version.
 require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
-//require_once JPATH_COMPONENT .'/helpers/log.php';
+require_once JPATH_COMPONENT .'/helpers/log.php';
 
 /**
  * Ukrgb Component event Model
@@ -23,10 +23,12 @@ require_once JPATH_ADMINISTRATOR . '/components/com_ukrgb/models/event.php';
  */
 class UkrgbModelEvform extends UkrgbModelEvent
 {
-	//private $logger ;
+	private $logger ;
 	public function __construct($config = array())
 	{
-		//$this->logger = new UkrgbLogger();
+		$this->logger = new UkrgbLogger();
+		$this->logger->log("UkrgbModelEvform __construct");
+		
 		return parent::__construct($config);
 	}
 
@@ -46,13 +48,12 @@ class UkrgbModelEvform extends UkrgbModelEvent
 	 *
 	 */
 	protected function populateState()
-	{
+	{		
 		$app = JFactory::getApplication();
 
 		// Load state from the request.
 		$pk = $app->input->getInt('a_id');
 		$this->setState('event.id', $pk);
-
 		$this->setState('event.catid', $app->input->getInt('catid'));
 
 		$return = $app->input->get('return', null, 'base64');
@@ -61,7 +62,6 @@ class UkrgbModelEvform extends UkrgbModelEvent
 		// Load the parameters.
 		$params = $app->getParams();
 		$this->setState('params', $params);
-
 		$this->setState('layout', $app->input->getString('layout'));
 	}
 
@@ -74,8 +74,8 @@ class UkrgbModelEvform extends UkrgbModelEvent
 	 */
 	public function getItem($itemId = null)
 	{
+		//die('UkrgbModelEvform getItem');
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('event.id');
-
 		// Get a row instance.
 		$table = $this->getTable();
 
@@ -86,20 +86,23 @@ class UkrgbModelEvform extends UkrgbModelEvent
 		if ($return === false && $table->getError())
 		{
 			$this->setError($table->getError());
-
 			return false;
 		}
 
 		$properties = $table->getProperties(1);
 		$value = JArrayHelper::toObject($properties, 'JObject');
 
+		$catId = $value->catid;
+		
 		// Convert attrib field to Registry.
 		$value->params = new Registry;
 
+		$this->logger->log("UkrgbModelEvform CatId: " . $catId);
+		
 		// Compute selected asset permissions.
 		$user   = JFactory::getUser();
 		$userId = $user->get('id');
-		$asset  = 'com_ukrgb.event.' . $value->id;
+		$asset  = 'com_ukrgb.category.' . $catId;
 
 		// Check general edit permission first.
 		if ($user->authorise('core.edit', $asset))
@@ -126,8 +129,6 @@ class UkrgbModelEvform extends UkrgbModelEvent
 		else
 		{
 			// New event.
-			$catId = (int) $this->getState('event.catid');
-
 			if ($catId)
 			{
 				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_ukrgb.category.' . $catId));
@@ -138,7 +139,6 @@ class UkrgbModelEvform extends UkrgbModelEvent
 				$value->params->set('access-change', $user->authorise('core.edit.state', 'com_ukrgb'));
 			}
 		}
-
 		return $value;
 	}
 
