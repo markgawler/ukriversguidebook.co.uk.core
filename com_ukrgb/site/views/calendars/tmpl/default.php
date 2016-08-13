@@ -31,7 +31,7 @@ $params = $this->params;
 					<?php echo JText::_('COM_UKRGB_CAL_DESC'); ?>
 				</th>
 				<?php if ($this->canCreate) : ?>
-					<th id="categorylist_header_edit"><?php echo JText::_('COM_CONTENT_EDIT_ITEM'); ?></th>
+					<th id="categorylist_header_edit"><?php echo JText::_('COM_UKRGB_CREATE_ITEM'); ?></th>
 				<?php endif; ?>
 			</tr>
 		</thead>

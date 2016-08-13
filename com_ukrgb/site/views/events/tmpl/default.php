@@ -100,7 +100,7 @@ if (!empty($this->events))
 					</th>
 				<?php endif; ?>
 				<?php if ($isEditable) : ?>
-					<th id="categorylist_header_edit"><?php echo JText::_('COM_CONTENT_EDIT_ITEM'); ?></th>
+					<th id="categorylist_header_edit"><?php echo JText::_('COM_UKRGB_CREATE_ITEM'); ?></th>
 				<?php endif; ?>
 			</tr>
 		</thead>

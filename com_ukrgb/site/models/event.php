@@ -48,7 +48,6 @@ class UkrgbModelEvent extends JModelItem
 	protected function populateState()
 	{
 		$app = JFactory::getApplication('site');
-		//die('UkrgbModelEvent - pop stare ');
 		// Load state from the request.
 		$pk = $app->input->getInt('id');
 		$this->setState('event.id', $pk);
@@ -61,11 +60,11 @@ class UkrgbModelEvent extends JModelItem
 		// TODO: Tune these values based on other permissions.
 		$user = JFactory::getUser();
 	
-		if ((!$user->authorise('core.edit.state', 'com_ukrgb')) && (!$user->authorise('core.edit', 'com_ukrgb')))
-		{
-			$this->setState('filter.published', 1);
-			$this->setState('filter.archived', 2);
-		}
+		//if ((!$user->authorise('core.edit.state', 'com_ukrgb')) && (!$user->authorise('core.edit', 'com_ukrgb')))
+		//{
+		$this->setState('filter.published', 1);
+		// //	$this->setState('filter.archived', 2);
+		//}
 	
 		$this->setState('filter.language', JLanguageMultilang::isEnabled());
 	}
@@ -126,7 +125,7 @@ class UkrgbModelEvent extends JModelItem
 					// Filter by start and end dates.
 					$nullDate = $db->quote($db->getNullDate());
 					$date = JFactory::getDate();
-		
+
 					$nowDate = $db->quote($date->toSql());
 		
 					$query->where('(a.publish_up = ' . $nullDate . ' OR a.publish_up <= ' . $nowDate . ')')
@@ -143,11 +142,11 @@ class UkrgbModelEvent extends JModelItem
 		
 				// Filter by published state.
 				$published = $this->getState('filter.published');
-				$archived = $this->getState('filter.archived');
+				//$archived = $this->getState('filter.archived');
 		
 				if (is_numeric($published))
 				{
-					$query->where('(a.state = ' . (int) $published . ' OR a.state =' . (int) $archived . ')');
+					$query->where('(a.state = ' . (int) $published . ')');
 				}
 		
 				$db->setQuery($query);
@@ -160,7 +159,7 @@ class UkrgbModelEvent extends JModelItem
 				}
 		
 				// Check for published state if filter set.
-				if (((is_numeric($published)) || (is_numeric($archived))) && (($data->state != $published) && ($data->state != $archived)))
+				if (is_numeric($published) && (($data->state != $published) && ($data->state != $archived)))
 				{
 					return JError::raiseError(404, JText::_('COM_CONTENT_ERROR_ARTICLE_NOT_FOUND'));
 				}

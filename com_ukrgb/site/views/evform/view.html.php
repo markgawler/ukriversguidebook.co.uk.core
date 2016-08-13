@@ -63,7 +63,7 @@ class UkrgbViewEvform extends JViewLegacy
 		
 			return false;
 		}
-		$params = &$this->state->get('params');
+		$params = $this->state->get('params');
 		
 		$this->params = $params;
 		

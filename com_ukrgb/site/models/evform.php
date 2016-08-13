@@ -165,6 +165,7 @@ class UkrgbModelEvform extends UkrgbModelEvent
 	 */
 	public function save($data)
 	{
+		$data['state'] = 1;  // force published
 		return parent::save($data);
 	}
 
