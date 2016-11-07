@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
 
-	<fieldset name="paypal" label="PayPal Settings"
+	<fieldset name="paypal" label="PayPal Settings" addfieldpath="/administrator/components/com_ukrgb/fields" 
 		description="Configuration settings for the Donate Button within the UKRGB Component">
 		
 		<field name="sandbox" type="radio" class="btn-group"  default="0" 
@@ -44,6 +44,12 @@
 			size="14"
 			maxlength="14">
 		</field>
+		
+		<field name="JFusionPluginParam" type="JFusionAdvancedParam" default="" label="JFUSION_PLUGIN" feature="activity" description="JFUSION_PLUGIN_DESCR"  />
+				
+		<field name="selected_forums" type="ForumList" default=""
+                       label="Select Forums"
+                       description="Select forums to display the PayPlal donate button."  />	
 		
 	</fieldset>
 	<fieldset name="riverguides" label="COM_UKRGB_RG"

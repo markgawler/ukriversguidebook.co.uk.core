@@ -29,7 +29,7 @@ require_once JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components' . DIRECTOR
  */
 class JFormFieldForumlist extends JFormField
 {
-	public $type = 'forumlist';
+	public $type = 'ForumList';
 	/**
 	 * Get an field
 	 *
@@ -38,28 +38,22 @@ class JFormFieldForumlist extends JFormField
 	protected function getInput()
 	{
 		try {
-			//Query current selected Module Id
-			$id = JFactory::getApplication()->input->getInt('id', 0);
-			$cid = JFactory::getApplication()->input->get('cid', array($id), 'array');
-			JArrayHelper::toInteger($cid, array(0));
-			//find out which JFusion plugin is used in the activity module
 			$db = JFactory::getDBO();
 
 			$query = $db->getQuery(true)
 				->select('params')
 				->from('#__extensions')
-				->where('element = ' . $db->quote('ukrgb'))
-				->where('folder = ' . $db->quote('system'))
-				->where('client_id = ' . $db->quote($cid[0]));
+				->where('element = ' . $db->quote('com_ukrgb'))
+				->where('type = ' . $db->quote('component'));
 
 			$db->setQuery($query);
 			$params = $db->loadResult();
 			$parametersInstance = new JRegistry($params);
+			
 			//load custom plugin parameter
 			$jPluginParamRaw = unserialize(base64_decode($parametersInstance->get('JFusionPluginParam')));
 			$jname = $jPluginParamRaw['jfusionplugin'];
 
-			$control_name = $this->formControl . '[' . $this->group . ']';
 			if (!empty($jname)) {
 				$JFusionPlugin = JFusionFactory::getForum($jname);
 				if ($JFusionPlugin->isConfigured()) {
@@ -67,7 +61,7 @@ class JFormFieldForumlist extends JFormField
 						$forumlist = $JFusionPlugin->getForumList();
 						if (!empty($forumlist)) {
 							$selectedValue = $parametersInstance->get($this->fieldname);
-							$output = JHTML::_('select.genericlist', $forumlist, $control_name . '[' . $this->fieldname . '][]', 'multiple size="6" class="inputbox"', 'id', 'name', $selectedValue);
+							$output = JHTML::_('select.genericlist', $forumlist, $this->formControl . '[' . $this->fieldname . '][]', 'multiple size="6" class="inputbox"', 'id', 'name', $selectedValue);
 						} else {
 							throw new RuntimeException($jname . ': ' .JText::_('NO_LIST'));
 						}
