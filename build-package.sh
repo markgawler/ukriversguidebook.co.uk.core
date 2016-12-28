@@ -22,6 +22,11 @@ echo "Content Plugin, Creating Zip..."
 cd plg_ukrgbcontent
 zip -qr ../plg_ukrgbcontent .
 
+cd ..
+echo "Custom Search Module, Creating Zip..."
+cd mod_ukrgbcustomsearch
+zip -qr ../mod_ukrgbcustomsearch .
+
 
 cd ..
 echo "AWS Library, Creating Zip..."

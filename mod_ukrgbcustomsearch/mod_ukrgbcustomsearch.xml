@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>UKRGB Custom Search</name>
+    <author>Mark Gawler</author>
+    <version>1.0.0</version>
+    <description>A module to insert a Google Custom Search</description>
+    <files>
+        <filename>mod_ukrgbcustomsearch.xml</filename>
+        <filename module="mod_ukrgbcustomsearch">mod_ukrgbcustomsearch.php</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+    </files>
+    <config>
+    <fields name="params">
+		<fieldset name="basic">
+			<field name="Mode" lable="Mode" description="Module mode, Search Input / Result" type="radio">
+			    <option value="1">Input</option>
+			    <option value="0">Result</option>
+			</field>		
+		</fieldset>
+	</fields>
+    </config>
+</extension>
