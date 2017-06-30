@@ -13,7 +13,7 @@
     <config>
     <fields name="params">
 		<fieldset name="basic">
-			<field name="Mode" lable="Mode" description="Module mode, Search Input / Result" type="radio">
+			<field name="Mode" label="Mode" description="Module mode, Search Input / Result" type="radio">
 			    <option value="1">Input</option>
 			    <option value="0">Result</option>
 			</field>		

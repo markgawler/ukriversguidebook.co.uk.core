@@ -27,6 +27,11 @@ echo "Custom Search Module, Creating Zip..."
 cd mod_ukrgbcustomsearch
 zip -qr ../mod_ukrgbcustomsearch .
 
+cd ..
+echo "Custom Nestcam Module, Creating Zip..."
+cd mod_ukrgbnestcam
+zip -qr ../mod_ukrgbnestcam .
+
 
 cd ..
 echo "AWS Library, Creating Zip..."
