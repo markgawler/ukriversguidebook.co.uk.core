@@ -14,8 +14,10 @@
     <fields name="params">
 		<fieldset name="basic">
 			<field name="Srcurl" label="Video URL" description="URL of video steam" type="URL">
-			</field>		
-		</fieldset>
+			</field>
+            <field name="Articleid" label="ID of Article" description="allows fine control of the article the video is permitted to display in (0 = any)" type="number" default="0" min="0">
+            </field>
+        </fieldset>
 	</fields>
     </config>
 </extension>
