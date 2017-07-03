@@ -17,6 +17,12 @@
 			</field>
             <field name="Articleid" label="ID of Article" description="allows fine control of the article the video is permitted to display in (0 = any)" type="number" default="0" min="0">
             </field>
+            <field name="AcknowledgmentPrefix" label="Acknowledgment Prefix Text" description="Prefix text to appear before the acknowledgement" type="text" default="" >
+            </field>
+            <field name="AcknowledgmentLink" label="Acknowledgment Link" description="Acknowledgment URL" type="URL" default="" >
+            </field>
+            <field name="AcknowledgmentName" label="Acknowledgment Link Text" description="Name of organisation being acknowledged." type="text" default="" >
+            </field>
         </fieldset>
 	</fields>
     </config>
