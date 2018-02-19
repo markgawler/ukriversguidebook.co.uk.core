@@ -34,10 +34,13 @@ class plgContentUkrgb extends JPlugin {
 		} 
 		
 		
-		// Add the extra fields to the form.
-		JForm::addFormPath(dirname(__FILE__) . '/fields');
-		$form->loadFile('riverguide', false);
-		
+		if (!isset($data->catid) || (isset($data->catid) && $this->is_riverguide_category($data->catid)))
+		{
+			// Add the extra fields to the form.
+			JForm::addFormPath(dirname(__FILE__) . '/fields');
+			$form->loadFile('riverguide', false);
+		}
+
 		if (isset($data->catid) && $this->is_riverguide_category($data->catid))
 		{
 			// load the data in to the form
@@ -89,7 +92,6 @@ class plgContentUkrgb extends JPlugin {
 		{
 
 			$attribs = json_decode($article->attribs);
-			//$this->logger->log(" - Grade: " . $attribs->grade);
 			if ($attribs->grade == "-1"){
 				$app = JFactory::getApplication();
 				$app->enqueueMessage(JText::_("COM_UKRGB_GRADE_MISSING") , 'error');
